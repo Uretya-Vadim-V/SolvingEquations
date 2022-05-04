@@ -12,7 +12,7 @@ namespace SolvingEquations
         private int previousPosition = 0;
         private int currentPosition = 0;
         private double startCoordinat = 0;
-        private double endCoordinat = 10;
+        private double endCoordinat = 0;
         private static string GetString(Complex complex)
         {
             if (complex.Real < 1E-14 && complex.Real > -1E-14)
@@ -31,12 +31,11 @@ namespace SolvingEquations
             string number = "";
             void MassageBoxWrong(string text1, string text2)
             {
-                MessageBox.Show(
+                MessageBox.Show(this,
                     text1 + text2, "Проверка корней уравнения",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.None,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.DefaultDesktopOnly);
+                    MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button1, 0);
             }
             switch (condition)
             {
@@ -47,6 +46,7 @@ namespace SolvingEquations
                         if (eq > 1E-9 || eq < -1E-9)
                         {
                             stringCondition = "Проверка неверна: ";
+                            number += $"\nF({EquationOfTheFirstDegree}) = " + eq.ToString();
                         }
                         MassageBoxWrong(stringCondition, "");
                         break;
@@ -61,7 +61,7 @@ namespace SolvingEquations
                             if (eq > 1E-9 || eq < -1E-9)
                             {
                                 stringCondition = "Проверка неверна: ";
-                                number += $"\n{item} : " + eq.ToString();
+                                number += $"\nF({item}) = " + eq.ToString();
                             }
                         }
                         MassageBoxWrong(stringCondition, number);
@@ -78,7 +78,7 @@ namespace SolvingEquations
                             if (eq > 1E-9 || eq < -1E-9)
                             {
                                 stringCondition = "Проверка неверна: ";
-                                number += $"\n{item} : " + eq.ToString();
+                                number += $"\nF({item}) = " + eq.ToString();
                             }
                         }
                         MassageBoxWrong(stringCondition, number);
@@ -96,7 +96,7 @@ namespace SolvingEquations
                             if (eq > 1E-9 || eq < -1E-9)
                             {
                                 stringCondition = "Проверка неверна: ";
-                                number += $"\n{item} : " + eq.ToString();
+                                number += $"\nF({item}) = " + eq.ToString();
                             }
                         }
                         MassageBoxWrong(stringCondition, number);
@@ -115,7 +115,7 @@ namespace SolvingEquations
                             if (eq > 1E-9 || eq < -1E-9)
                             {
                                 stringCondition = "Проверка неверна: ";
-                                number += $"\n{item} : " + eq.ToString();
+                                number += $"\nF({item}) = " + eq.ToString();
                             }
                         }
                         MassageBoxWrong(stringCondition, number);
@@ -251,74 +251,151 @@ namespace SolvingEquations
 
         }
 
+        private void textBoxFifthDegree_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxFourthDegree_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxThirdDegree_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxSecondDegree_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxFirstDegree_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxFreeMember_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+            {
+                e.Handled = true;
+            }
+        }
+
         //Нахождение корней уравнения
         private void buttonFindRoofs_Click(object sender, EventArgs e)
         {
             buttonBuildGraph.Enabled = true;
             textBoxFindRoofs.Enabled = true;
-            IEnumerable<Complex> result;
             buttonVerification.Enabled = true;
-
             textBoxFindRoofs.Clear();
-
             double.TryParse(textBoxFreeMember.Text, out freeElement);
             double.TryParse(textBoxFirstDegree.Text, out firstElement);
             double.TryParse(textBoxSecondDegree.Text, out secondElement);
             double.TryParse(textBoxThirdDegree.Text, out thirdElement);
             double.TryParse(textBoxFourthDegree.Text, out fourthElement);
             double.TryParse(textBoxFifthDegree.Text, out fifthElement);
-
+            IEnumerable<Complex> result;
+            void MassageBoxError()
+            {
+                MessageBox.Show(this,
+                    "Первый элемент не может быть равен нулю!", "Входные данные",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button1, 0);
+            }
             switch (condition)
             {
                 case 1:
                     {
-
-                        double EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
-                        textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
+                        if (firstElement == 0)
+                            MassageBoxError();
+                        else
+                        {
+                            double EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
+                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
+                        }
                         break;
                     }
                 case 2:
                     {
-                        result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
-
-                        foreach (var item in result)
+                        if (secondElement == 0)
+                            MassageBoxError();
+                        else
                         {
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
+                            result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
+                            foreach (var item in result)
+                            {
+                                textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
+                            }
                         }
-
-
                         break;
                     }
                 case 3:
                     {
-                        result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
-
-                        foreach (var item in result)
+                        if (thirdElement == 0)
+                            MassageBoxError();
+                        else
                         {
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
+                            result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
+                            foreach (var item in result)
+                            {
+                                textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
+                            }
                         }
                         break;
                     }
                 case 4:
                     {
-                        result = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
-
-                        foreach (var item in result)
+                        if (fourthElement == 0)
+                            MassageBoxError();
+                        else
                         {
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
+                            result = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
+                            foreach (var item in result)
+                            {
+                                textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
+                            }
                         }
                         break;
                     }
                 case 5:
                     {
-                        result = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
-
-                        foreach (var item in result)
+                        if (fifthElement == 0)
+                            MassageBoxError();
+                        else
                         {
-                            if (item.Real == double.MaxValue)
-                                textBoxFindRoofs.Text = "Отсутвуют действительные корни!";
-                            else
-                                textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
+                            result = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
+                            foreach (var item in result)
+                            {
+                                if (item.Real == double.MaxValue)
+                                    textBoxFindRoofs.Text = "Отсутвуют действительные корни!";
+                                else
+                                    textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
+                            }
                         }
                         break;
                     }

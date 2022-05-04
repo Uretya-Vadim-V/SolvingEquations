@@ -29,8 +29,8 @@ namespace SolvingEquations
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelOfEnterEqual = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBoxFifthDegree = new System.Windows.Forms.TextBox();
@@ -53,6 +53,7 @@ namespace SolvingEquations
             this.ClearButton = new System.Windows.Forms.Button();
             this.StartX = new System.Windows.Forms.TextBox();
             this.EndX = new System.Windows.Forms.TextBox();
+            this.ListResults = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,6 +92,7 @@ namespace SolvingEquations
             // textBoxFifthDegree
             // 
             this.textBoxFifthDegree.BackColor = System.Drawing.Color.Black;
+            this.textBoxFifthDegree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxFifthDegree.Enabled = false;
             this.textBoxFifthDegree.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFifthDegree.ForeColor = System.Drawing.Color.White;
@@ -99,6 +101,7 @@ namespace SolvingEquations
             this.textBoxFifthDegree.Name = "textBoxFifthDegree";
             this.textBoxFifthDegree.Size = new System.Drawing.Size(120, 34);
             this.textBoxFifthDegree.TabIndex = 3;
+            this.textBoxFifthDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFifthDegree_KeyPress);
             // 
             // labelFifthDegree
             // 
@@ -129,6 +132,7 @@ namespace SolvingEquations
             // textBoxFourthDegree
             // 
             this.textBoxFourthDegree.BackColor = System.Drawing.Color.Black;
+            this.textBoxFourthDegree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxFourthDegree.Enabled = false;
             this.textBoxFourthDegree.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFourthDegree.ForeColor = System.Drawing.Color.White;
@@ -137,6 +141,7 @@ namespace SolvingEquations
             this.textBoxFourthDegree.Name = "textBoxFourthDegree";
             this.textBoxFourthDegree.Size = new System.Drawing.Size(120, 34);
             this.textBoxFourthDegree.TabIndex = 5;
+            this.textBoxFourthDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFourthDegree_KeyPress);
             // 
             // labelThirdDegree
             // 
@@ -154,6 +159,7 @@ namespace SolvingEquations
             // textBoxThirdDegree
             // 
             this.textBoxThirdDegree.BackColor = System.Drawing.Color.Black;
+            this.textBoxThirdDegree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxThirdDegree.Enabled = false;
             this.textBoxThirdDegree.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxThirdDegree.ForeColor = System.Drawing.Color.White;
@@ -162,6 +168,7 @@ namespace SolvingEquations
             this.textBoxThirdDegree.Name = "textBoxThirdDegree";
             this.textBoxThirdDegree.Size = new System.Drawing.Size(120, 34);
             this.textBoxThirdDegree.TabIndex = 7;
+            this.textBoxThirdDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxThirdDegree_KeyPress);
             // 
             // labelSecondDegree
             // 
@@ -179,6 +186,7 @@ namespace SolvingEquations
             // textBoxSecondDegree
             // 
             this.textBoxSecondDegree.BackColor = System.Drawing.Color.Black;
+            this.textBoxSecondDegree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxSecondDegree.Enabled = false;
             this.textBoxSecondDegree.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSecondDegree.ForeColor = System.Drawing.Color.White;
@@ -187,6 +195,7 @@ namespace SolvingEquations
             this.textBoxSecondDegree.Name = "textBoxSecondDegree";
             this.textBoxSecondDegree.Size = new System.Drawing.Size(120, 34);
             this.textBoxSecondDegree.TabIndex = 9;
+            this.textBoxSecondDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSecondDegree_KeyPress);
             // 
             // labelThirstDegree
             // 
@@ -204,6 +213,7 @@ namespace SolvingEquations
             // textBoxFirstDegree
             // 
             this.textBoxFirstDegree.BackColor = System.Drawing.Color.Black;
+            this.textBoxFirstDegree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxFirstDegree.Enabled = false;
             this.textBoxFirstDegree.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFirstDegree.ForeColor = System.Drawing.Color.White;
@@ -212,10 +222,12 @@ namespace SolvingEquations
             this.textBoxFirstDegree.Name = "textBoxFirstDegree";
             this.textBoxFirstDegree.Size = new System.Drawing.Size(120, 34);
             this.textBoxFirstDegree.TabIndex = 11;
+            this.textBoxFirstDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFirstDegree_KeyPress);
             // 
             // textBoxFreeMember
             // 
             this.textBoxFreeMember.BackColor = System.Drawing.Color.Black;
+            this.textBoxFreeMember.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxFreeMember.Enabled = false;
             this.textBoxFreeMember.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFreeMember.ForeColor = System.Drawing.Color.White;
@@ -224,6 +236,7 @@ namespace SolvingEquations
             this.textBoxFreeMember.Name = "textBoxFreeMember";
             this.textBoxFreeMember.Size = new System.Drawing.Size(120, 34);
             this.textBoxFreeMember.TabIndex = 13;
+            this.textBoxFreeMember.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFreeMember_KeyPress);
             // 
             // labelEquals
             // 
@@ -242,6 +255,8 @@ namespace SolvingEquations
             // 
             this.buttonFindRoofs.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.buttonFindRoofs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.buttonFindRoofs.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFindRoofs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonFindRoofs.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonFindRoofs.ForeColor = System.Drawing.Color.White;
             this.buttonFindRoofs.Location = new System.Drawing.Point(1093, 53);
@@ -257,6 +272,7 @@ namespace SolvingEquations
             // 
             this.textBoxFindRoofs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFindRoofs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.textBoxFindRoofs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxFindRoofs.Enabled = false;
             this.textBoxFindRoofs.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFindRoofs.ForeColor = System.Drawing.Color.White;
@@ -272,7 +288,9 @@ namespace SolvingEquations
             // 
             this.buttonVerification.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonVerification.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.buttonVerification.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonVerification.Enabled = false;
+            this.buttonVerification.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonVerification.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonVerification.ForeColor = System.Drawing.Color.White;
             this.buttonVerification.Location = new System.Drawing.Point(1093, 292);
@@ -287,7 +305,9 @@ namespace SolvingEquations
             // buttonBuildGraph
             // 
             this.buttonBuildGraph.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.buttonBuildGraph.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonBuildGraph.Enabled = false;
+            this.buttonBuildGraph.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonBuildGraph.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonBuildGraph.ForeColor = System.Drawing.Color.White;
             this.buttonBuildGraph.Location = new System.Drawing.Point(168, 600);
@@ -303,18 +323,18 @@ namespace SolvingEquations
             // 
             this.chart1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chart1.BackColor = System.Drawing.Color.LightGray;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea8.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea8);
             this.chart1.Location = new System.Drawing.Point(15, 139);
             this.chart1.Margin = new System.Windows.Forms.Padding(4);
             this.chart1.MinimumSize = new System.Drawing.Size(410, 221);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series8.BorderWidth = 3;
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series8.Name = "Series1";
+            this.chart1.Series.Add(series8);
             this.chart1.Size = new System.Drawing.Size(711, 420);
             this.chart1.TabIndex = 24;
             this.chart1.Text = "chart1";
@@ -324,6 +344,8 @@ namespace SolvingEquations
             // 
             this.ClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ClearButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.ClearButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ClearButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ClearButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearButton.ForeColor = System.Drawing.Color.White;
             this.ClearButton.Location = new System.Drawing.Point(1093, 600);
@@ -357,12 +379,27 @@ namespace SolvingEquations
             this.EndX.Text = "10";
             this.EndX.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // ListResults
+            // 
+            this.ListResults.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.ListResults.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.ListResults.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ListResults.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ListResults.ForeColor = System.Drawing.Color.White;
+            this.ListResults.Location = new System.Drawing.Point(735, 346);
+            this.ListResults.Multiline = true;
+            this.ListResults.Name = "ListResults";
+            this.ListResults.ReadOnly = true;
+            this.ListResults.Size = new System.Drawing.Size(515, 247);
+            this.ListResults.TabIndex = 30;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.ClientSize = new System.Drawing.Size(1262, 673);
+            this.Controls.Add(this.ListResults);
             this.Controls.Add(this.EndX);
             this.Controls.Add(this.StartX);
             this.Controls.Add(this.ClearButton);
@@ -420,6 +457,7 @@ namespace SolvingEquations
         private System.Windows.Forms.Button buttonVerification;
         private System.Windows.Forms.TextBox StartX;
         private System.Windows.Forms.TextBox EndX;
+        private System.Windows.Forms.TextBox ListResults;
     }
 }
 
