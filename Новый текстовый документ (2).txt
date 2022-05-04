@@ -1,0 +1,30 @@
+        public static IEnumerable<Complex> EquationOfTheFifthDegree(double a0, double a1, double a2, double a3, double a4, double a5)
+        {
+            double a = a1 / a0, b = a2 / a0, c = a3 / a0, d = a4 / a0, e = a5 / a0;
+            double brd = Math.Max(Math.Abs(a), Math.Max(Math.Abs(b), Math.Max(Math.Abs(c), Math.Max(Math.Abs(d), Math.Abs(e)))));
+            double step = 1E-2;
+            double number;
+            double x1 = double.MaxValue;
+            IEnumerable<Complex> list = new List<Complex>();
+            List<Complex> listResults = new List<Complex>();
+            for (double i = -brd; i <= brd; i += step)
+            {
+                i = Math.Round(i, 2);
+                number = Math.Pow(i, 5) * a0 + Math.Pow(i, 4) * a1 + Math.Pow(i, 3) * a2 + Math.Pow(i, 2) * a3 + i * a4 + a5;
+                if (number == 0)
+                {
+                    x1 = i;
+                    break;
+                }
+            }
+            if (x1 < double.MaxValue)
+            {
+                list = EquationOfTheFourthDegree(a0, a0 * x1 + a1, (a0 * x1 + a1) * x1 + a2, ((a0 * x1 + a1) * x1 + a2) * x1 + a3, (((a0 * x1 + a1) * x1 + a2) * x1 + a3) * x1 + a4);
+            }
+            foreach (Complex item in list)
+            {
+                listResults.Add(item);
+            }
+            listResults.Add(x1);
+            return listResults;
+        }

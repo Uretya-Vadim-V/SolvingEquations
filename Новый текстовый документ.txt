@@ -1,0 +1,180 @@
+        public static IEnumerable<Complex> EquationOfTheFourthDegree(double a0, double a1, double a2, double a3, double a4)
+        {
+            void Box(double _p, double _q, double _r, double _s, string _text, double _dis1, double _dis2)
+            {
+                MessageBox.Show(
+$"p = {_p}, q = {_q}, r = {_r}, s = {_s}\n{_text}\ndis1 = {_dis1}, dis2 = {_dis2}", "Проверка корней уравнения",
+MessageBoxButtons.OK,
+MessageBoxIcon.None,
+MessageBoxDefaultButton.Button1,
+MessageBoxOptions.DefaultDesktopOnly);
+            }
+            double a = a1 / a0, b = a2 / a0, c = a3 / a0, d = a4 / a0;
+            double p = b - 3 * Math.Pow(a, 2) / 8;
+            double q = Math.Pow(a, 3) / 8 - a * b / 2 + c;
+            double r = -3 * Math.Pow(a, 4) / 256 + Math.Pow(a, 2) * b / 16 - c * a / 4 + d;
+            IEnumerable<Complex> list = EquationOfTheThirdDegree(2, -p, -2 * r, r * p - Math.Pow(q, 2) / 4);
+            double s = double.MaxValue;
+            string text = "";
+            foreach (Complex item in list)
+            {
+                text += $"{item}\n";
+                if (item.Imaginary % 1 < 1E-14 && item.Imaginary % 1 > -1E-14)
+                {
+                    if (item.Real > 1E-14 || item.Real < -1E-14)
+                    {
+                        s = item.Real;
+                        if (item.Real % 1 == 0)
+                        {
+                            s = item.Real;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (2 * s - p > 0)
+            {
+                double dis1 = 2 * s - p - 2 * q / Math.Sqrt(2 * s - p) - 4 * s;
+                double dis2 = 2 * s - p + 2 * q / Math.Sqrt(2 * s - p) - 4 * s;
+                if (dis1 < 1E-14 && dis1 > -1E-14)
+                    dis1 = 0;
+                if (dis2 < 1E-14 && dis2 > -1E-14)
+                    dis2 = 0;
+                if (dis1 >= 0 && dis2 > 0)
+                {
+                    double x1 = Math.Sqrt(2 * s - p) / 2 - Math.Sqrt(dis1) / 2 - a / 4;
+                    double x2 = Math.Sqrt(2 * s - p) / 2 + Math.Sqrt(dis1) / 2 - a / 4;
+                    double x3 = -Math.Sqrt(2 * s - p) / 2 - Math.Sqrt(dis2) / 2 - a / 4;
+                    double x4 = -Math.Sqrt(2 * s - p) / 2 + Math.Sqrt(dis2) / 2 - a / 4;
+                    Box(p, q, r, s, text, dis1, dis2);
+                    return new List<Complex> { x1, x2, x3, x4 };
+                }
+                else
+                {
+                    if (dis1 >= 0 && dis2 < 0)
+                    {
+                        double x1 = Math.Sqrt(2 * s - p) / 2 - Math.Sqrt(dis1) / 2 - a / 4;
+                        double x2 = Math.Sqrt(2 * s - p) / 2 + Math.Sqrt(dis1) / 2 - a / 4;
+                        Complex x3 = new Complex(-Math.Sqrt(2 * s - p) / 2 - a / 4, -Math.Sqrt(-dis2) / 2);
+                        Complex x4 = new Complex(-Math.Sqrt(2 * s - p) / 2 - a / 4, Math.Sqrt(-dis2) / 2);
+                        Box(p, q, r, s, text, dis1, dis2);
+                        return new List<Complex> { x1, x2, x3, x4 };
+                    }
+                    else
+                    {
+                        if (dis1 < 0 && dis2 >= 0)
+                        {
+                            Complex x1 = new Complex(Math.Sqrt(2 * s - p) / 2 - a / 4, -Math.Sqrt(-dis1) / 2);
+                            Complex x2 = new Complex(Math.Sqrt(2 * s - p) / 2 - a / 4, Math.Sqrt(-dis1) / 2);
+                            double x3 = -Math.Sqrt(2 * s - p) / 2 - Math.Sqrt(dis2) / 2 - a / 4;
+                            double x4 = -Math.Sqrt(2 * s - p) / 2 + Math.Sqrt(dis2) / 2 - a / 4;
+                            Box(p, q, r, s, text, dis1, dis2);
+                            return new List<Complex> { x1, x2, x3, x4 };
+                        }
+                        else
+                        {
+                            Complex x1 = new Complex(Math.Sqrt(2 * s - p) / 2 - a / 4, -Math.Sqrt(-dis1) / 2);
+                            Complex x2 = new Complex(Math.Sqrt(2 * s - p) / 2 - a / 4, Math.Sqrt(-dis1) / 2);
+                            Complex x3 = new Complex(-Math.Sqrt(2 * s - p) / 2 - a / 4, -Math.Sqrt(-dis2) / 2);
+                            Complex x4 = new Complex(-Math.Sqrt(2 * s - p) / 2 - a / 4, Math.Sqrt(-dis2) / 2);
+                            Box(p, q, r, s, text, dis1, dis2);
+                            return new List<Complex> { x1, x2, x3, x4 };
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (2 * s - p < 0)
+                {
+                    Complex dis1 = new Complex(2 * s - p - 4 * s, -2 * q * Math.Sqrt(p - 2 * s) / (p - 2 * s));
+                    Complex dis2 = new Complex(2 * s - p - 4 * s, 2 * q * Math.Sqrt(p - 2 * s) / (p - 2 * s));
+                    if (dis1.Imaginary < 1E-14 && dis1.Imaginary > -1E-14)
+                        dis1 = new Complex(dis1.Real, 0);
+                    if (dis2.Imaginary < 1E-14 && dis2.Imaginary > -1E-14)
+                        dis2 = new Complex(dis2.Real, 0);
+                    double r1 = Math.Sqrt(Math.Pow(dis1.Real, 2) + Math.Pow(dis1.Imaginary, 2));
+                    double r2 = Math.Sqrt(Math.Pow(dis2.Real, 2) + Math.Pow(dis2.Imaginary, 2));
+                    double arg1 = Math.Atan(dis1.Imaginary / dis1.Real);
+                    double arg2 = Math.Atan(dis2.Imaginary / dis2.Real);
+                    if (arg1 < 1E-14 && arg1 > -1E-14)
+                    {
+                        arg1 = 0;
+                        r1 = Math.Pow(dis1.Imaginary, 2);
+                    }
+                    if (arg2 < 1E-14 && arg2 > -1E-14)
+                    {
+                        arg2 = 0;
+                        r2 = Math.Pow(dis2.Imaginary, 2);
+                    }
+                    Complex x1 = new Complex(-Math.Sqrt(r1) * Math.Cos(arg1 / 2) / 2 - a / 4, Math.Sqrt(p - 2 * s) / 2 + Math.Sqrt(r1) * Math.Sin(arg1 / 2) / 2);
+                    Complex x2 = new Complex(Math.Sqrt(r1) * Math.Cos(arg1 / 2) / 2 - a / 4, Math.Sqrt(p - 2 * s) / 2 - Math.Sqrt(r1) * Math.Sin(arg1 / 2) / 2);
+                    Complex x3 = new Complex(-Math.Sqrt(r2) * Math.Cos(arg2 / 2) / 2 - a / 4, -Math.Sqrt(p - 2 * s) / 2 + Math.Sqrt(r2) * Math.Sin(arg2 / 2) / 2);
+                    Complex x4 = new Complex(Math.Sqrt(r2) * Math.Cos(arg2 / 2) / 2 - a / 4, -Math.Sqrt(p - 2 * s) / 2 - Math.Sqrt(r2) * Math.Sin(arg2 / 2) / 2);
+                    MessageBox.Show(
+$"p = {p}, q = {q}, r = {r}, s = {s}\n{text}\narg1 = {arg1}, arg2 = {arg2}\nr1 = {r1}, r2 = {r2}\ndis1 = {dis1}, dis2 = {dis2}", "Проверка корней уравнения",
+MessageBoxButtons.OK,
+MessageBoxIcon.None,
+MessageBoxDefaultButton.Button1,
+MessageBoxOptions.DefaultDesktopOnly);
+                    return new List<Complex> { x1, x2, x3, x4 };
+                }
+                else
+                {
+                    Complex x1, x2, x3, x4;
+                    if (Math.Pow(p, 2) - 4 * r >= 0)
+                    {
+                        if (-p / 2 + Math.Sqrt(Math.Pow(p, 2) - 4 * r) / 2 >= 0)
+                        {
+                            x1 = Math.Sqrt(-p / 2 + Math.Sqrt(Math.Pow(p, 2) - 4 * r) / 2) - a / 4;
+                            x2 = -Math.Sqrt(-p / 2 + Math.Sqrt(Math.Pow(p, 2) - 4 * r) / 2) - a / 4;
+                        }
+                        else
+                        {
+                            x1 = new Complex(-a / 4, Math.Sqrt(p / 2 - Math.Sqrt(Math.Pow(p, 2) - 4 * r) / 2));
+                            x2 = new Complex(-a / 4, -Math.Sqrt(p / 2 - Math.Sqrt(Math.Pow(p, 2) - 4 * r) / 2));
+                        }
+                        if (-p / 2 - Math.Sqrt(Math.Pow(p, 2) - 4 * r) / 2 >= 0)
+                        {
+                            x3 = Math.Sqrt(-p / 2 - Math.Sqrt(Math.Pow(p, 2) - 4 * r) / 2) - a / 4;
+                            x4 = -Math.Sqrt(-p / 2 - Math.Sqrt(Math.Pow(p, 2) - 4 * r) / 2) - a / 4;
+                        }
+                        else
+                        {
+                            x3 = new Complex(-a / 4, Math.Sqrt(p / 2 + Math.Sqrt(Math.Pow(p, 2) - 4 * r) / 2));
+                            x4 = new Complex(-a / 4, -Math.Sqrt(p / 2 + Math.Sqrt(Math.Pow(p, 2) - 4 * r) / 2));
+                        }
+                    }
+                    else
+                    {
+                        if (-p / 2 + Math.Sqrt(4 * r - Math.Pow(p, 2)) / 2 >= 0)
+                        {
+                            x1 = Math.Sqrt(-p / 2 + Math.Sqrt(4 * r - Math.Pow(p, 2)) / 2) - a / 4;
+                            x2 = -Math.Sqrt(-p / 2 + Math.Sqrt(4 * r - Math.Pow(p, 2)) / 2) - a / 4;
+                        }
+                        else
+                        {
+                            x1 = new Complex(-a / 4, Math.Sqrt(p / 2 - Math.Sqrt(4 * r - Math.Pow(p, 2)) / 2));
+                            x2 = new Complex(-a / 4, -Math.Sqrt(p / 2 - Math.Sqrt(4 * r - Math.Pow(p, 2)) / 2));
+                        }
+                        if (-p / 2 - Math.Sqrt(Math.Pow(p, 2) - 4 * r) / 2 >= 0)
+                        {
+                            x3 = Math.Sqrt(-p / 2 - Math.Sqrt(4 * r - Math.Pow(p, 2)) / 2) - a / 4;
+                            x4 = -Math.Sqrt(-p / 2 - Math.Sqrt(4 * r - Math.Pow(p, 2)) / 2) - a / 4;
+                        }
+                        else
+                        {
+                            x3 = new Complex(-a / 4, Math.Sqrt(p / 2 + Math.Sqrt(4 * r - Math.Pow(p, 2)) / 2));
+                            x4 = new Complex(-a / 4, -Math.Sqrt(p / 2 + Math.Sqrt(4 * r - Math.Pow(p, 2)) / 2));
+                        }
+                    }
+                    MessageBox.Show(
+$"p = {p}, q = {q}, r = {r}, s = {s}\n{text}", "Проверка корней уравнения",
+MessageBoxButtons.OK,
+MessageBoxIcon.None,
+MessageBoxDefaultButton.Button1,
+MessageBoxOptions.DefaultDesktopOnly);
+                    return new List<Complex> { x1, x2, x3, x4 };
+                }
+            }
+        }
