@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Linq;
 
 namespace SolvingEquations
 {
@@ -238,7 +239,7 @@ namespace SolvingEquations
             else
             {
                 if (e.KeyChar == 46) e.KeyChar = ',';
-                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFifthDegree.SelectionStart > 1)
+                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFifthDegree.SelectionStart > (textBoxFifthDegree.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
                     if (textBoxFifthDegree.Text.IndexOf(',') > 1)
                     {
@@ -264,7 +265,7 @@ namespace SolvingEquations
             else
             {
                 if (e.KeyChar == 46) e.KeyChar = ',';
-                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFourthDegree.SelectionStart > 1)
+                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFourthDegree.SelectionStart > (textBoxFourthDegree.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
                     if (textBoxFourthDegree.Text.IndexOf(',') > 1)
                     {
@@ -290,7 +291,7 @@ namespace SolvingEquations
             else
             {
                 if (e.KeyChar == 46) e.KeyChar = ',';
-                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxThirdDegree.SelectionStart > 1)
+                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxThirdDegree.SelectionStart > (textBoxThirdDegree.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
                     if (textBoxThirdDegree.Text.IndexOf(',') > 1)
                     {
@@ -316,7 +317,7 @@ namespace SolvingEquations
             else
             {
                 if (e.KeyChar == 46) e.KeyChar = ',';
-                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxSecondDegree.SelectionStart > 1)
+                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxSecondDegree.SelectionStart > (textBoxSecondDegree.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
                     if (textBoxSecondDegree.Text.IndexOf(',') > 1)
                     {
@@ -342,7 +343,7 @@ namespace SolvingEquations
             else
             {
                 if (e.KeyChar == 46) e.KeyChar = ',';
-                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFirstDegree.SelectionStart > 1)
+                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFirstDegree.SelectionStart > (textBoxFirstDegree.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
                     if (textBoxFirstDegree.Text.IndexOf(',') > 1)
                     {
@@ -368,7 +369,7 @@ namespace SolvingEquations
             else
             {
                 if (e.KeyChar == 46) e.KeyChar = ',';
-                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFreeMember.SelectionStart > 1)
+                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFreeMember.SelectionStart > (textBoxFreeMember.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
                     if (textBoxFreeMember.Text.IndexOf(',') > 1)
                     {
@@ -401,6 +402,9 @@ namespace SolvingEquations
             chart1.Enabled = false;
             StartX.Text = "-10";
             EndX.Text = "10";
+            buttonBuildGraph.Enabled = false;
+            buttonVerification.Enabled = false;
+            textBoxFindRoofs.Enabled = false;
         }
 
         //Нахождение корней уравнения
@@ -439,6 +443,11 @@ namespace SolvingEquations
                         {
                             double EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
+                            string text = ListResults.Text;
+                            ListResults.Clear();
+                            ListResults.Text += $"{firstElement}x " + 
+                                (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
+                                Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
                         }
                         break;
                     }
@@ -453,6 +462,12 @@ namespace SolvingEquations
                             {
                                 textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                             }
+                            string text = ListResults.Text;
+                            ListResults.Clear();
+                            ListResults.Text += $"{secondElement}x² " +
+                                (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
+                                (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
+                                Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
                         }
                         break;
                     }
@@ -467,6 +482,13 @@ namespace SolvingEquations
                             {
                                 textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                             }
+                            string text = ListResults.Text;
+                            ListResults.Clear();
+                            ListResults.Text += $"{thirdElement}x³ " +
+                                (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "") +
+                                (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
+                                (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
+                                Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
                         }
                         break;
                     }
@@ -481,6 +503,14 @@ namespace SolvingEquations
                             {
                                 textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                             }
+                            string text = ListResults.Text;
+                            ListResults.Clear();
+                            ListResults.Text += $"{fourthElement}x⁴ " +
+                                (thirdElement > 0 ? $"+ {thirdElement}x³ " : thirdElement < 0 ? $"- {-thirdElement}x³ " : "") +
+                                (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "") +
+                                (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
+                                (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
+                                Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
                         }
                         break;
                     }
@@ -496,8 +526,19 @@ namespace SolvingEquations
                                 if (item.Real == double.MaxValue)
                                     textBoxFindRoofs.Text = "Отсутвуют действительные корни!";
                                 else
+                                {
                                     textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
+                                }
                             }
+                            string text = ListResults.Text;
+                            ListResults.Clear();
+                            ListResults.Text += $"{fifthElement}x⁵ " +
+                                (fourthElement > 0 ? $"+ {fourthElement}x⁴ " : fourthElement < 0 ? $"- {-fourthElement}x⁴ " : "") +
+                                (thirdElement > 0 ? $"+ {thirdElement}x³ " : thirdElement < 0 ? $"- {-thirdElement}x³ " : "") +
+                                (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "") +
+                                (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
+                                (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
+                                Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
                         }
                         break;
                     }
@@ -522,6 +563,7 @@ namespace SolvingEquations
             chart1.Series[0].Points.Clear();
             chart1.Enabled = true;
             BuildGraph();
+            chart1.Series[0].Color = System.Drawing.Color.Blue;
         }
 
         private void chart1_MouseMove(object sender, MouseEventArgs e)

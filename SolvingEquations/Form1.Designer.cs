@@ -29,8 +29,8 @@ namespace SolvingEquations
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelOfEnterEqual = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBoxFifthDegree = new System.Windows.Forms.TextBox();
@@ -324,19 +324,19 @@ namespace SolvingEquations
             // 
             this.chart1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chart1.BackColor = System.Drawing.Color.LightGray;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Enabled = false;
             this.chart1.Location = new System.Drawing.Point(15, 139);
             this.chart1.Margin = new System.Windows.Forms.Padding(4);
             this.chart1.MinimumSize = new System.Drawing.Size(410, 221);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(711, 420);
             this.chart1.TabIndex = 24;
             this.chart1.Text = "chart1";
@@ -392,6 +392,7 @@ namespace SolvingEquations
             this.ListResults.Multiline = true;
             this.ListResults.Name = "ListResults";
             this.ListResults.ReadOnly = true;
+            this.ListResults.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.ListResults.Size = new System.Drawing.Size(515, 247);
             this.ListResults.TabIndex = 30;
             // 

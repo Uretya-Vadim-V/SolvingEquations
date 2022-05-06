@@ -38,7 +38,7 @@ namespace SolvingEquations
             }
             else
             {
-                double A = -Math.Sign(r) * Math.Pow(3 * Math.Abs(r) + Math.Sqrt(9 * Math.Pow(r, 2) - 36 * Math.Pow(q, 3)), (double)1 / 3) / 3 / Math.Pow(6, (double)1 / 3);
+                double A = -Math.Sign(r == 0 ? 1 : r) * Math.Pow(3 * Math.Abs(r) + Math.Sqrt(9 * Math.Pow(r, 2) - 36 * Math.Pow(q, 3)), (double)1 / 3) / 3 / Math.Pow(6, (double)1 / 3);
                 if (A < 1E-14 && A > -1E-14)
                     A = 0;
                 double B = (A == 0) ? 0 : q / A / 9;
