@@ -132,16 +132,7 @@ namespace SolvingEquations
 
         private void comboBox1_TextChanged(object sender, EventArgs e)
         {
-            textBoxFindRoofs.Clear();
-            textBoxFifthDegree.Clear();
-            textBoxFourthDegree.Clear();
-            textBoxThirdDegree.Clear();
-            textBoxSecondDegree.Clear();
-            textBoxFirstDegree.Clear();
-            textBoxFreeMember.Clear();
-
             int.TryParse(comboBox1.Text, out condition);
-
             switch (condition)
             {
                 case 1:
@@ -150,10 +141,8 @@ namespace SolvingEquations
                         textBoxFirstDegree.Enabled = true;
                         labelEquals.Enabled = true;
                         labelThirstDegree.Enabled = true;
-
                         textBoxSecondDegree.Enabled = false;
                         labelSecondDegree.Enabled = false;
-
                         textBoxFourthDegree.Enabled = false;
                         labelFourthDegree.Enabled = false;
                         textBoxFifthDegree.Enabled = false;
@@ -168,10 +157,8 @@ namespace SolvingEquations
                         textBoxFirstDegree.Enabled = true;
                         labelEquals.Enabled = true;
                         labelThirstDegree.Enabled = true;
-
                         textBoxSecondDegree.Enabled = true;
                         labelSecondDegree.Enabled = true;
-
                         textBoxFourthDegree.Enabled = false;
                         labelFourthDegree.Enabled = false;
                         textBoxFifthDegree.Enabled = false;
@@ -186,12 +173,10 @@ namespace SolvingEquations
                         textBoxFirstDegree.Enabled = true;
                         labelEquals.Enabled = true;
                         labelThirstDegree.Enabled = true;
-
                         textBoxSecondDegree.Enabled = true;
                         labelSecondDegree.Enabled = true;
                         textBoxThirdDegree.Enabled = true;
                         labelThirdDegree.Enabled = true;
-
                         textBoxFourthDegree.Enabled = false;
                         labelFourthDegree.Enabled = false;
                         textBoxFifthDegree.Enabled = false;
@@ -204,14 +189,12 @@ namespace SolvingEquations
                         textBoxFirstDegree.Enabled = true;
                         labelEquals.Enabled = true;
                         labelThirstDegree.Enabled = true;
-
                         textBoxSecondDegree.Enabled = true;
                         labelSecondDegree.Enabled = true;
                         textBoxThirdDegree.Enabled = true;
                         labelThirdDegree.Enabled = true;
                         textBoxFourthDegree.Enabled = true;
                         labelFourthDegree.Enabled = true;
-
                         textBoxFifthDegree.Enabled = false;
                         labelFifthDegree.Enabled = false;
                         break;
@@ -222,7 +205,6 @@ namespace SolvingEquations
                         textBoxFirstDegree.Enabled = true;
                         labelEquals.Enabled = true;
                         labelThirstDegree.Enabled = true;
-
                         textBoxSecondDegree.Enabled = true;
                         labelSecondDegree.Enabled = true;
                         textBoxThirdDegree.Enabled = true;
@@ -250,59 +232,175 @@ namespace SolvingEquations
         {
 
         }
-
         private void textBoxFifthDegree_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char number = e.KeyChar;
-            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+            if (e.KeyChar == 45 && textBoxFifthDegree.SelectionStart == 0) { }
+            else
             {
-                e.Handled = true;
+                if (e.KeyChar == 46) e.KeyChar = ',';
+                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFifthDegree.SelectionStart > 1)
+                {
+                    if (textBoxFifthDegree.Text.IndexOf(',') > 1)
+                    {
+                        if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                        {
+                            e.Handled = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                    {
+                        e.Handled = true;
+                    }
+                }
             }
         }
 
         private void textBoxFourthDegree_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char number = e.KeyChar;
-            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+            if (e.KeyChar == 45 && textBoxFourthDegree.SelectionStart == 0) { }
+            else
             {
-                e.Handled = true;
+                if (e.KeyChar == 46) e.KeyChar = ',';
+                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFourthDegree.SelectionStart > 1)
+                {
+                    if (textBoxFourthDegree.Text.IndexOf(',') > 1)
+                    {
+                        if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                        {
+                            e.Handled = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                    {
+                        e.Handled = true;
+                    }
+                }
             }
         }
 
         private void textBoxThirdDegree_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char number = e.KeyChar;
-            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+            if (e.KeyChar == 45 && textBoxThirdDegree.SelectionStart == 0) { }
+            else
             {
-                e.Handled = true;
+                if (e.KeyChar == 46) e.KeyChar = ',';
+                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxThirdDegree.SelectionStart > 1)
+                {
+                    if (textBoxThirdDegree.Text.IndexOf(',') > 1)
+                    {
+                        if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                        {
+                            e.Handled = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                    {
+                        e.Handled = true;
+                    }
+                }
             }
         }
 
         private void textBoxSecondDegree_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char number = e.KeyChar;
-            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+            if (e.KeyChar == 45 && textBoxSecondDegree.SelectionStart == 0) { }
+            else
             {
-                e.Handled = true;
+                if (e.KeyChar == 46) e.KeyChar = ',';
+                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxSecondDegree.SelectionStart > 1)
+                {
+                    if (textBoxSecondDegree.Text.IndexOf(',') > 1)
+                    {
+                        if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                        {
+                            e.Handled = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                    {
+                        e.Handled = true;
+                    }
+                }
             }
         }
 
         private void textBoxFirstDegree_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char number = e.KeyChar;
-            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+            if (e.KeyChar == 45 && textBoxFirstDegree.SelectionStart == 0) { }
+            else
             {
-                e.Handled = true;
+                if (e.KeyChar == 46) e.KeyChar = ',';
+                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFirstDegree.SelectionStart > 1)
+                {
+                    if (textBoxFirstDegree.Text.IndexOf(',') > 1)
+                    {
+                        if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                        {
+                            e.Handled = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                    {
+                        e.Handled = true;
+                    }
+                }
             }
         }
 
         private void textBoxFreeMember_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char number = e.KeyChar;
-            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) { }
+            else
             {
-                e.Handled = true;
+                if (e.KeyChar == 46) e.KeyChar = ',';
+                if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFreeMember.SelectionStart > 1)
+                {
+                    if (textBoxFreeMember.Text.IndexOf(',') > 1)
+                    {
+                        if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                        {
+                            e.Handled = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                    {
+                        e.Handled = true;
+                    }
+                }
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBoxFindRoofs.Clear();
+            textBoxFifthDegree.Clear();
+            textBoxFourthDegree.Clear();
+            textBoxThirdDegree.Clear();
+            textBoxSecondDegree.Clear();
+            textBoxFirstDegree.Clear();
+            textBoxFreeMember.Clear();
+            chart1.Series[0].Points.Clear();
+            chart1.Enabled = false;
+            StartX.Text = "-10";
+            EndX.Text = "10";
         }
 
         //Нахождение корней уравнения
@@ -311,6 +409,10 @@ namespace SolvingEquations
             buttonBuildGraph.Enabled = true;
             textBoxFindRoofs.Enabled = true;
             buttonVerification.Enabled = true;
+            chart1.Series[0].Points.Clear();
+            chart1.Enabled = false;
+            StartX.Text = "-10";
+            EndX.Text = "10";
             textBoxFindRoofs.Clear();
             double.TryParse(textBoxFreeMember.Text, out freeElement);
             double.TryParse(textBoxFirstDegree.Text, out firstElement);
@@ -418,6 +520,7 @@ namespace SolvingEquations
         private void buttonBuildGraph_Click(object sender, EventArgs e)
         {
             chart1.Series[0].Points.Clear();
+            chart1.Enabled = true;
             BuildGraph();
         }
 
@@ -444,7 +547,7 @@ namespace SolvingEquations
 
         private void BuildGraph()
         {
-            startCoordinat = Convert.ToDouble(StartX.Text);
+            startCoordinat = Convert.ToDouble(StartX.Text) + 0.1;
             endCoordinat = Convert.ToDouble(EndX.Text);
             chart1.Series[0].Points.Clear();
             for (double i = startCoordinat; i <= endCoordinat; i += 0.1)
