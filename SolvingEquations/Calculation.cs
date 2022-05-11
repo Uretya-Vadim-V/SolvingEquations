@@ -14,7 +14,10 @@ namespace SolvingEquations
                 disc = 0;
             if (disc < 0)
             {
-                return new List<Complex> { new Complex(-a1 / 2 / a0, Math.Sqrt(-disc) / 2 / a0), new Complex(-a1 / 2 / a0, -Math.Sqrt(-disc) / 2 / a0) };
+                double bufer = Math.Sqrt(-disc) / 2 / a0;
+                if (bufer < 1E-9 && bufer > -1E-9)
+                    bufer = 0;
+                return new List<Complex> { new Complex(-a1 / 2 / a0, bufer), new Complex(-a1 / 2 / a0, -bufer) };
             }
             else
             {
@@ -50,8 +53,11 @@ namespace SolvingEquations
                 }
                 else
                 {
-                    Complex x2 = new Complex(-(A + B) / 2 - (a / 3), Math.Sqrt(3) * (A - B) / 2);
-                    Complex x3 = new Complex(-(A + B) / 2 - (a / 3), -Math.Sqrt(3) * (A - B) / 2);
+                    double bufer = Math.Sqrt(3) * (A - B) / 2;
+                    if (bufer < 1E-9 && bufer > -1E-9)
+                        bufer = 0;
+                    Complex x2 = new Complex(-(A + B) / 2 - (a / 3), bufer);
+                    Complex x3 = new Complex(-(A + B) / 2 - (a / 3), -bufer);
                     return new List<Complex> { x1, x2, x3 };
                 }
             }
@@ -304,7 +310,7 @@ namespace SolvingEquations
             else
             {
                 // Метод Ньютона
-                double x = -brd;
+                x1 = -brd;
                 double Fx(double i)
                 {
                     return Math.Pow(i, 5) * a0 + Math.Pow(i, 4) * a1 + Math.Pow(i, 3) * a2 + Math.Pow(i, 2) * a3 + i * a4 + a5;
@@ -313,9 +319,9 @@ namespace SolvingEquations
                 {
                     return Math.Pow(i, 4) * a0 * 5 + Math.Pow(i, 3) * a1 * 4 + Math.Pow(i, 2) * a2 * 3 + i * a3 * 2 + a4;
                 }
-                while (Math.Abs(Fx(x)) > 1E-9)
-                    x = x - Fx(x) / F_x(x);
-                listResults.Add(x);
+                while (Math.Abs(Fx(x1)) > 1E-9)
+                    x1 = x1 - Fx(x1) / F_x(x1);
+                listResults.Add(x1);
             }
             if (a1 == 0 && a2 == 0 && a3 == 0 && a4 == 0 && a5 == 0)
             {
