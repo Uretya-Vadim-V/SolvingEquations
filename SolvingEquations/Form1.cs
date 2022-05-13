@@ -13,7 +13,7 @@ namespace SolvingEquations
         private double firstElement, secondElement, thirdElement, fourthElement, fifthElement, freeElement;
         private int previousPosition = 0;
         private int currentPosition = 0;
-        private IEnumerable<Complex> result;
+        private IEnumerable<Complex> result = new List<Complex>();
         private static string GetString(Complex complex)
         {
             if (complex.Real < 1E-9 && complex.Real > -1E-9)
@@ -26,103 +26,27 @@ namespace SolvingEquations
         //Проверка корней уравнения
         private void buttonVerification_Click(object sender, EventArgs e)
         {
-            IEnumerable<Complex> result;
             double eq;
             string stringCondition = "Проверка верна";
             string number = "";
-            void MassageBoxWrong(string text1, string text2)
+            foreach (var item in result)
             {
-                MessageBox.Show(this,
-                    text1 + text2, "Проверка корней уравнения",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information,
-                    MessageBoxDefaultButton.Button1, 0);
+                eq = (Math.Pow(item.Real, 5) - 10 * Math.Pow(item.Real, 3) * Math.Pow(item.Imaginary, 2) + 5 * item.Real * Math.Pow(item.Imaginary, 4)) * fifthElement +
+                    Math.Pow(Math.Pow(item.Real, 2) + Math.Pow(item.Imaginary, 2), 2) * Math.Cos(4 * Math.Atan(item.Imaginary / item.Real)) * fourthElement +
+                    (Math.Pow(item.Real, 3) - 3 * item.Real * Math.Pow(item.Imaginary, 2)) * thirdElement +
+                    (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement +
+                    item.Real * firstElement + freeElement; ;
+                if (eq > 1E-9 || eq < -1E-9)
+                {
+                    stringCondition = "Проверка неверна: ";
+                    number += $"\nF({item}) = " + eq.ToString();
+                }
             }
-            switch (condition)
-            {
-                case 1:
-                    {
-                        double EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
-                        eq = EquationOfTheFirstDegree * firstElement + freeElement;
-                        if (eq > 1E-9 || eq < -1E-9)
-                        {
-                            stringCondition = "Проверка неверна: ";
-                            number += $"\nF({EquationOfTheFirstDegree}) = " + eq.ToString();
-                        }
-                        MassageBoxWrong(stringCondition, "");
-                        break;
-                    }
-                case 2:
-                    {
-                        result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
-                        foreach (var item in result)
-                        {
-                            eq = (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + 
-                                item.Real * firstElement + freeElement;
-                            if (eq > 1E-9 || eq < -1E-9)
-                            {
-                                stringCondition = "Проверка неверна: ";
-                                number += $"\nF({item}) = " + eq.ToString();
-                            }
-                        }
-                        MassageBoxWrong(stringCondition, number);
-                        break;
-                    }
-                case 3:
-                    {
-                        result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
-                        foreach (var item in result)
-                        {
-                            eq = (Math.Pow(item.Real, 3) - 3 * item.Real * Math.Pow(item.Imaginary, 2))* thirdElement + 
-                                (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + 
-                                item.Real * firstElement + freeElement;
-                            if (eq > 1E-9 || eq < -1E-9)
-                            {
-                                stringCondition = "Проверка неверна: ";
-                                number += $"\nF({item}) = " + eq.ToString();
-                            }
-                        }
-                        MassageBoxWrong(stringCondition, number);
-                        break;
-                    }
-                case 4:
-                    {
-                        result = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
-                        foreach (var item in result)
-                        {
-                            eq = Math.Pow(Math.Pow(item.Real, 2)  + Math.Pow(item.Imaginary, 2),2)*Math.Cos(4 * Math.Atan(item.Imaginary / item.Real)) * fourthElement +
-                                (Math.Pow(item.Real, 3) - 3 * item.Real * Math.Pow(item.Imaginary, 2)) * thirdElement + 
-                                (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + 
-                                item.Real * firstElement + freeElement;
-                            if (eq > 1E-9 || eq < -1E-9)
-                            {
-                                stringCondition = "Проверка неверна: ";
-                                number += $"\nF({item}) = " + eq.ToString();
-                            }
-                        }
-                        MassageBoxWrong(stringCondition, number);
-                        break;
-                    }
-                case 5:
-                    {
-                        result = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
-                        foreach (var item in result)
-                        {
-                            eq = (Math.Pow(item.Real, 5) - 10 * Math.Pow(item.Real, 3) * Math.Pow(item.Imaginary, 2) + 5 * item.Real * Math.Pow(item.Imaginary, 4)) * fifthElement +
-                                Math.Pow(Math.Pow(item.Real, 2) + Math.Pow(item.Imaginary, 2), 2) * Math.Cos(4 * Math.Atan(item.Imaginary / item.Real)) * fourthElement +
-                                (Math.Pow(item.Real, 3) - 3 * item.Real * Math.Pow(item.Imaginary, 2)) * thirdElement +
-                                (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement +
-                                item.Real * firstElement + freeElement; ;
-                            if (eq > 1E-9 || eq < -1E-9)
-                            {
-                                stringCondition = "Проверка неверна: ";
-                                number += $"\nF({item}) = " + eq.ToString();
-                            }
-                        }
-                        MassageBoxWrong(stringCondition, number);
-                        break;
-                    }
-            }
+            MessageBox.Show(this,
+                                stringCondition + number, "Проверка корней уравнения",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information,
+                                MessageBoxDefaultButton.Button1, 0);
         }
 
         public Form1()
@@ -237,7 +161,7 @@ namespace SolvingEquations
                 if (e.KeyChar == 46) e.KeyChar = ',';
                 if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFifthDegree.SelectionStart > (textBoxFifthDegree.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
-                    if (textBoxFifthDegree.Text.IndexOf(',') > 1)
+                    if (textBoxFifthDegree.Text.IndexOf(',') > 0)
                     {
                         if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
                         {
@@ -263,7 +187,7 @@ namespace SolvingEquations
                 if (e.KeyChar == 46) e.KeyChar = ',';
                 if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFourthDegree.SelectionStart > (textBoxFourthDegree.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
-                    if (textBoxFourthDegree.Text.IndexOf(',') > 1)
+                    if (textBoxFourthDegree.Text.IndexOf(',') > 0)
                     {
                         if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
                         {
@@ -289,7 +213,7 @@ namespace SolvingEquations
                 if (e.KeyChar == 46) e.KeyChar = ',';
                 if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxThirdDegree.SelectionStart > (textBoxThirdDegree.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
-                    if (textBoxThirdDegree.Text.IndexOf(',') > 1)
+                    if (textBoxThirdDegree.Text.IndexOf(',') > 0)
                     {
                         if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
                         {
@@ -315,7 +239,7 @@ namespace SolvingEquations
                 if (e.KeyChar == 46) e.KeyChar = ',';
                 if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxSecondDegree.SelectionStart > (textBoxSecondDegree.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
-                    if (textBoxSecondDegree.Text.IndexOf(',') > 1)
+                    if (textBoxSecondDegree.Text.IndexOf(',') > 0)
                     {
                         if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
                         {
@@ -341,7 +265,7 @@ namespace SolvingEquations
                 if (e.KeyChar == 46) e.KeyChar = ',';
                 if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFirstDegree.SelectionStart > (textBoxFirstDegree.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
-                    if (textBoxFirstDegree.Text.IndexOf(',') > 1)
+                    if (textBoxFirstDegree.Text.IndexOf(',') > 0)
                     {
                         if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
                         {
@@ -367,7 +291,7 @@ namespace SolvingEquations
                 if (e.KeyChar == 46) e.KeyChar = ',';
                 if ((e.KeyChar == 44 || e.KeyChar == 46) && textBoxFreeMember.SelectionStart > (textBoxFreeMember.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
-                    if (textBoxFreeMember.Text.IndexOf(',') > 1)
+                    if (textBoxFreeMember.Text.IndexOf(',') > 0)
                     {
                         if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
                         {
@@ -405,7 +329,7 @@ namespace SolvingEquations
             buttonBuildGraph.Enabled = false;
             buttonVerification.Enabled = false;
             textBoxFindRoofs.Enabled = false;
-            buttonFindRoofs.Enabled = true;
+            buttonFindRoofs.Enabled = false;
         }
 
         private void EndY_KeyPress(object sender, KeyPressEventArgs e)
@@ -416,7 +340,7 @@ namespace SolvingEquations
                 if (e.KeyChar == 46) e.KeyChar = ',';
                 if ((e.KeyChar == 44 || e.KeyChar == 46) && EndY.SelectionStart > (EndY.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
-                    if (EndY.Text.IndexOf(',') > 1)
+                    if (EndY.Text.IndexOf(',') > 0)
                     {
                         if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
                         {
@@ -442,7 +366,7 @@ namespace SolvingEquations
                 if (e.KeyChar == 46) e.KeyChar = ',';
                 if ((e.KeyChar == 44 || e.KeyChar == 46) && StartY.SelectionStart > (StartY.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
-                    if (StartY.Text.IndexOf(',') > 1)
+                    if (StartY.Text.IndexOf(',') > 0)
                     {
                         if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
                         {
@@ -468,7 +392,7 @@ namespace SolvingEquations
                 if (e.KeyChar == 46) e.KeyChar = ',';
                 if ((e.KeyChar == 44 || e.KeyChar == 46) && StartX.SelectionStart > (StartX.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
-                    if (StartX.Text.IndexOf(',') > 1)
+                    if (StartX.Text.IndexOf(',') > 0)
                     {
                         if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
                         {
@@ -494,7 +418,7 @@ namespace SolvingEquations
                 if (e.KeyChar == 46) e.KeyChar = ',';
                 if ((e.KeyChar == 44 || e.KeyChar == 46) && EndX.SelectionStart > (EndX.Text.IndexOf('-') == 0 ? 1 : 0))
                 {
-                    if (EndX.Text.IndexOf(',') > 1)
+                    if (EndX.Text.IndexOf(',') > 0)
                     {
                         if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
                         {
@@ -518,6 +442,7 @@ namespace SolvingEquations
             double.TryParse(EndX.Text, out double endX);
             double.TryParse(StartY.Text, out double startY);
             double.TryParse(EndY.Text, out double endY);
+            if (startY != endY)
             {
                 if (e.Delta < 0)
                 {
@@ -533,7 +458,123 @@ namespace SolvingEquations
                     StartY.Text = (startY - 0.01).ToString();
                     EndY.Text = (endY + 0.01).ToString();
                 }
-                BuildGraph();
+                if (startX > endX)
+                {
+                    double.TryParse(StartX.Text, out startX);
+                    double.TryParse(EndX.Text, out endX);
+                }
+            }
+            else
+            {
+                StartY.Text = "-10";
+                EndY.Text = "10";
+                startY = -10;
+                endY = 10;
+            }
+            BuildGraph(startX, endX, startY, endY);
+        }
+
+        private void textBoxFourthDegree_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxFourthDegree.TextLength == 0 && textBoxFifthDegree.TextLength == 0)
+            {
+                buttonFindRoofs.Enabled = false;
+                buttonVerification.Enabled = false;
+                buttonBuildGraph.Enabled = false;
+            }
+            else
+            if (textBoxFifthDegree.Enabled == false && condition > 4 || condition == 4)
+            {
+                buttonFindRoofs.Enabled = true;
+                buttonVerification.Enabled = true;
+                buttonBuildGraph.Enabled = true;
+            }
+        }
+
+        private void textBoxFifthDegree_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxFifthDegree.TextLength == 0)
+            {
+                buttonFindRoofs.Enabled = false;
+                buttonVerification.Enabled = false;
+                buttonBuildGraph.Enabled = false;
+            }
+            else
+            {
+                buttonFindRoofs.Enabled = true;
+                buttonVerification.Enabled = true;
+                buttonBuildGraph.Enabled = true;
+            }
+        }
+
+        private void textBoxThirdDegree_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxThirdDegree.TextLength == 0 && (textBoxFifthDegree.TextLength == 0 && textBoxFourthDegree.TextLength == 0))
+            {
+                buttonFindRoofs.Enabled = false;
+                buttonVerification.Enabled = false;
+                buttonBuildGraph.Enabled = false;
+            }
+            else
+            if (textBoxFourthDegree.Enabled == false && condition > 3 || condition == 3)
+            {
+                buttonFindRoofs.Enabled = true;
+                buttonVerification.Enabled = true;
+                buttonBuildGraph.Enabled = true;
+            }
+        }
+
+        private void textBoxSecondDegree_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxSecondDegree.TextLength == 0 && (textBoxFifthDegree.TextLength == 0 && textBoxFourthDegree.TextLength == 0 &&
+                textBoxThirdDegree.TextLength == 0))
+            {
+                buttonFindRoofs.Enabled = false;
+                buttonVerification.Enabled = false;
+                buttonBuildGraph.Enabled = false;
+            }
+            else
+            if (textBoxThirdDegree.Enabled == false && condition > 2 || condition == 2)
+            {
+                buttonFindRoofs.Enabled = true;
+                buttonVerification.Enabled = true;
+                buttonBuildGraph.Enabled = true;
+            }
+        }
+
+        private void textBoxFirstDegree_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxFirstDegree.TextLength == 0 && (textBoxFifthDegree.TextLength == 0 && textBoxFourthDegree.TextLength == 0 &&
+                textBoxThirdDegree.TextLength == 0 && textBoxSecondDegree.TextLength == 0))
+            {
+                buttonFindRoofs.Enabled = false;
+                buttonVerification.Enabled = false;
+                buttonBuildGraph.Enabled = false;
+            }
+            else
+            if (textBoxSecondDegree.Enabled == false && condition > 1 || condition == 1)
+            {
+                buttonFindRoofs.Enabled = true;
+                buttonVerification.Enabled = true;
+                buttonBuildGraph.Enabled = true;
+            }
+        }
+
+        private void textBoxFreeMember_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxFreeMember.TextLength == 0 && (textBoxFifthDegree.TextLength == 0 && textBoxFourthDegree.TextLength == 0 &&
+                textBoxThirdDegree.TextLength == 0 && textBoxSecondDegree.TextLength == 0 && textBoxFirstDegree.TextLength == 0))
+            {
+                buttonFindRoofs.Enabled = false;
+                buttonVerification.Enabled = false;
+                buttonBuildGraph.Enabled = false;
+            }
+            else
+            if (textBoxFirstDegree.Enabled == false && condition > 0)
+            {
+                buttonFindRoofs.Enabled = true;
+                buttonVerification.Enabled = true;
+                buttonBuildGraph.Enabled = true;
             }
         }
 
@@ -558,136 +599,88 @@ namespace SolvingEquations
             double.TryParse(textBoxThirdDegree.Text, out thirdElement);
             double.TryParse(textBoxFourthDegree.Text, out fourthElement);
             double.TryParse(textBoxFifthDegree.Text, out fifthElement);
-            void MassageBoxError()
-            {
-                MessageBox.Show(this,
-                    "Первый элемент не может быть равен нулю!", "Входные данные",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error,
-                    MessageBoxDefaultButton.Button1, 0);
-            }
             switch (condition)
             {
                 case 1:
                     {
-                        if (firstElement == 0)
-                        {
-                            MassageBoxError();
-                            buttonBuildGraph.Enabled = false;
-                        }
-                        else
-                        {
-                            double EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
-                            string text = ListResults.Text;
-                            ListResults.Clear();
-                            ListResults.Text += $"{firstElement}x " +
-                                (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
-                                Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
-                        }
+                        double EquationOfTheFirstDegree = -freeElement / firstElement;
+                        textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
+                        string text = ListResults.Text;
+                        ListResults.Clear();
+                        ListResults.Text += $"{firstElement}x " +
+                            (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
+                            Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
                         break;
                     }
                 case 2:
                     {
-                        if (secondElement == 0)
+                        result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
+                        foreach (var item in result)
                         {
-                            MassageBoxError();
-                            buttonBuildGraph.Enabled = false;
+                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
-                        else
-                        {
-                            result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
-                            foreach (var item in result)
-                            {
-                                textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
-                            }
-                            string text = ListResults.Text;
-                            ListResults.Clear();
-                            ListResults.Text += $"{secondElement}x² " +
-                                (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
-                                (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
-                                Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
-                        }
+                        string text = ListResults.Text;
+                        ListResults.Clear();
+                        ListResults.Text += $"{secondElement}x² " +
+                            (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
+                            (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
+                            Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
                         break;
                     }
                 case 3:
                     {
-                        if (thirdElement == 0)
+                        result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
+                        foreach (var item in result)
                         {
-                            MassageBoxError();
-                            buttonBuildGraph.Enabled = false;
+                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
-                        else
-                        {
-                            result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
-                            foreach (var item in result)
-                            {
-                                textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
-                            }
-                            string text = ListResults.Text;
-                            ListResults.Clear();
-                            ListResults.Text += $"{thirdElement}x³ " +
-                                (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "") +
-                                (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
-                                (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
-                                Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
-                        }
+                        string text = ListResults.Text;
+                        ListResults.Clear();
+                        ListResults.Text += $"{thirdElement}x³ " +
+                            (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "") +
+                            (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
+                            (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
+                            Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
                         break;
                     }
                 case 4:
                     {
-                        if (fourthElement == 0)
+                        result = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
+                        foreach (var item in result)
                         {
-                            MassageBoxError();
-                            buttonBuildGraph.Enabled = false;
+                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
-                        else
-                        {
-                            result = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
-                            foreach (var item in result)
-                            {
-                                textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
-                            }
-                            string text = ListResults.Text;
-                            ListResults.Clear();
-                            ListResults.Text += $"{fourthElement}x⁴ " +
-                                (thirdElement > 0 ? $"+ {thirdElement}x³ " : thirdElement < 0 ? $"- {-thirdElement}x³ " : "") +
-                                (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "") +
-                                (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
-                                (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
-                                Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
-                        }
+                        string text = ListResults.Text;
+                        ListResults.Clear();
+                        ListResults.Text += $"{fourthElement}x⁴ " +
+                            (thirdElement > 0 ? $"+ {thirdElement}x³ " : thirdElement < 0 ? $"- {-thirdElement}x³ " : "") +
+                            (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "") +
+                            (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
+                            (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
+                            Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
                         break;
                     }
                 case 5:
                     {
-                        if (fifthElement == 0)
+                        result = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
+                        foreach (var item in result)
                         {
-                            MassageBoxError();
-                            buttonBuildGraph.Enabled = false;
-                        }
-                        else
-                        {
-                            result = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
-                            foreach (var item in result)
+                            if (item.Real == double.MaxValue)
+                                textBoxFindRoofs.Text = "Отсутвуют действительные корни!";
+                            else
                             {
-                                if (item.Real == double.MaxValue)
-                                    textBoxFindRoofs.Text = "Отсутвуют действительные корни!";
-                                else
-                                {
-                                    textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
-                                }
+                                textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                             }
-                            string text = ListResults.Text;
-                            ListResults.Clear();
-                            ListResults.Text += $"{fifthElement}x⁵ " +
-                                (fourthElement > 0 ? $"+ {fourthElement}x⁴ " : fourthElement < 0 ? $"- {-fourthElement}x⁴ " : "") +
-                                (thirdElement > 0 ? $"+ {thirdElement}x³ " : thirdElement < 0 ? $"- {-thirdElement}x³ " : "") +
-                                (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "") +
-                                (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
-                                (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
-                                Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
                         }
+                        string text = ListResults.Text;
+                        ListResults.Clear();
+                        ListResults.Text += $"{fifthElement}x⁵ " +
+                            (fourthElement > 0 ? $"+ {fourthElement}x⁴ " : fourthElement < 0 ? $"- {-fourthElement}x⁴ " : "") +
+                            (thirdElement > 0 ? $"+ {thirdElement}x³ " : thirdElement < 0 ? $"- {-thirdElement}x³ " : "") +
+                            (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "") +
+                            (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
+                            (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
+                            Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
                         break;
                     }
             }
@@ -714,22 +707,47 @@ namespace SolvingEquations
 
         private void buttonBuildGraph_Click(object sender, EventArgs e)
         {
-            chart1.Series[0].Points.Clear();
-            chart1.Series[1].Points.Clear();
-            chart1.Series[2].Points.Clear();
             chart1.Enabled = true;
-            BuildGraph();
-            chart1.Series[0].Color = Color.Blue;
+            double.TryParse(StartX.Text, out double startX);
+            double.TryParse(EndX.Text, out double endX);
+            double.TryParse(StartY.Text, out double startY);
+            double.TryParse(EndY.Text, out double endY);
+            if (endX == startX)
+            {
+                StartX.Text = "-10";
+                EndX.Text = "10";
+            }
+            if (endY == startY)
+            {
+                StartY.Text = "-10";
+                EndY.Text = "10";
+            }
+            if (startX > endX)
+            {
+                StartX.Text = endX.ToString();
+                EndX.Text = startX.ToString();
+            }
+            if (startY > endY)
+            {
+                StartY.Text = endY.ToString();
+                EndY.Text = startY.ToString();
+            }
+            double.TryParse(StartX.Text, out startX);
+            double.TryParse(EndX.Text, out endX);
+            double.TryParse(StartY.Text, out startY);
+            double.TryParse(EndY.Text, out endY);
+            BuildGraph(startX, endX, startY, endY);
         }
 
         private void chart1_MouseMove(object sender, MouseEventArgs e)
         {
             double.TryParse(StartX.Text, out double startX);
             double.TryParse(EndX.Text, out double endX);
+            double.TryParse(StartY.Text, out double startY);
+            double.TryParse(EndY.Text, out double endY);
             if (e.Button == MouseButtons.Left)
             {
                 currentPosition = (Cursor.Position.X - Left);
-
                 if (currentPosition > previousPosition)
                 {
                     StartX.Text = (startX - 0.05).ToString();
@@ -741,17 +759,12 @@ namespace SolvingEquations
                     EndX.Text = (endX + 0.05).ToString();
                 }
                 previousPosition = (Cursor.Position.X - Left);
-                BuildGraph();
+                BuildGraph(startX, endX, startY, endY);
             }
         }
-
-        private void BuildGraph()
+        private void BuildGraph(double startX, double endX, double startY, double endY)
         {
-            double.TryParse(StartX.Text, out double startX);
             startX += 0.1;
-            double.TryParse(EndX.Text, out double endX);
-            double.TryParse(StartY.Text, out double startY);
-            double.TryParse(EndY.Text, out double endY);
             chart1.ChartAreas[0].AxisY.Minimum = startY;
             chart1.ChartAreas[0].AxisY.Maximum = endY;
             chart1.Series[0].Points.Clear();
@@ -766,7 +779,7 @@ namespace SolvingEquations
             chart1.Series[1].Points.AddXY(endX, 0);
             foreach (var item in result)
             {
-                if (item.Imaginary < 1E-9 && item.Imaginary > -1E-9)
+                if ((item.Imaginary < 1E-9 && item.Imaginary > -1E-9) && (item.Real > startX && item.Real < endX))
                     chart1.Series[2].Points.AddXY(item.Real, 0);
             }
         }

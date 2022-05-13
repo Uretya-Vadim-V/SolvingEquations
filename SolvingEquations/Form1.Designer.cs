@@ -29,10 +29,10 @@ namespace SolvingEquations
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelOfEnterEqual = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBoxFifthDegree = new System.Windows.Forms.TextBox();
@@ -106,6 +106,7 @@ namespace SolvingEquations
             this.textBoxFifthDegree.Name = "textBoxFifthDegree";
             this.textBoxFifthDegree.Size = new System.Drawing.Size(120, 34);
             this.textBoxFifthDegree.TabIndex = 3;
+            this.textBoxFifthDegree.TextChanged += new System.EventHandler(this.textBoxFifthDegree_TextChanged);
             this.textBoxFifthDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFifthDegree_KeyPress);
             // 
             // labelFifthDegree
@@ -146,6 +147,7 @@ namespace SolvingEquations
             this.textBoxFourthDegree.Name = "textBoxFourthDegree";
             this.textBoxFourthDegree.Size = new System.Drawing.Size(120, 34);
             this.textBoxFourthDegree.TabIndex = 5;
+            this.textBoxFourthDegree.TextChanged += new System.EventHandler(this.textBoxFourthDegree_TextChanged);
             this.textBoxFourthDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFourthDegree_KeyPress);
             // 
             // labelThirdDegree
@@ -173,6 +175,7 @@ namespace SolvingEquations
             this.textBoxThirdDegree.Name = "textBoxThirdDegree";
             this.textBoxThirdDegree.Size = new System.Drawing.Size(120, 34);
             this.textBoxThirdDegree.TabIndex = 7;
+            this.textBoxThirdDegree.TextChanged += new System.EventHandler(this.textBoxThirdDegree_TextChanged);
             this.textBoxThirdDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxThirdDegree_KeyPress);
             // 
             // labelSecondDegree
@@ -200,6 +203,7 @@ namespace SolvingEquations
             this.textBoxSecondDegree.Name = "textBoxSecondDegree";
             this.textBoxSecondDegree.Size = new System.Drawing.Size(120, 34);
             this.textBoxSecondDegree.TabIndex = 9;
+            this.textBoxSecondDegree.TextChanged += new System.EventHandler(this.textBoxSecondDegree_TextChanged);
             this.textBoxSecondDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSecondDegree_KeyPress);
             // 
             // labelFirstDegree
@@ -227,6 +231,7 @@ namespace SolvingEquations
             this.textBoxFirstDegree.Name = "textBoxFirstDegree";
             this.textBoxFirstDegree.Size = new System.Drawing.Size(120, 34);
             this.textBoxFirstDegree.TabIndex = 11;
+            this.textBoxFirstDegree.TextChanged += new System.EventHandler(this.textBoxFirstDegree_TextChanged);
             this.textBoxFirstDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFirstDegree_KeyPress);
             // 
             // textBoxFreeMember
@@ -241,6 +246,7 @@ namespace SolvingEquations
             this.textBoxFreeMember.Name = "textBoxFreeMember";
             this.textBoxFreeMember.Size = new System.Drawing.Size(120, 34);
             this.textBoxFreeMember.TabIndex = 13;
+            this.textBoxFreeMember.TextChanged += new System.EventHandler(this.textBoxFreeMember_TextChanged);
             this.textBoxFreeMember.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFreeMember_KeyPress);
             // 
             // labelEquals
@@ -279,6 +285,7 @@ namespace SolvingEquations
             this.textBoxFindRoofs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFindRoofs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.textBoxFindRoofs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxFindRoofs.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.textBoxFindRoofs.Enabled = false;
             this.textBoxFindRoofs.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFindRoofs.ForeColor = System.Drawing.Color.White;
@@ -332,31 +339,32 @@ namespace SolvingEquations
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.BackColor = System.Drawing.Color.LightGray;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea6.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea6);
+            this.chart1.Cursor = System.Windows.Forms.Cursors.SizeWE;
             this.chart1.Enabled = false;
             this.chart1.Location = new System.Drawing.Point(50, 139);
             this.chart1.Margin = new System.Windows.Forms.Padding(4);
             this.chart1.MinimumSize = new System.Drawing.Size(400, 70);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Color = System.Drawing.Color.Blue;
-            series1.Name = "Series1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.Black;
-            series2.Name = "Series2";
-            series3.BorderWidth = 3;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series3.Color = System.Drawing.Color.Red;
-            series3.Name = "Series3";
-            this.chart1.Series.Add(series1);
-            this.chart1.Series.Add(series2);
-            this.chart1.Series.Add(series3);
+            series16.BorderWidth = 3;
+            series16.ChartArea = "ChartArea1";
+            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series16.Color = System.Drawing.Color.Blue;
+            series16.Name = "Series1";
+            series17.ChartArea = "ChartArea1";
+            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series17.Color = System.Drawing.Color.Black;
+            series17.Name = "Series2";
+            series18.BorderWidth = 3;
+            series18.ChartArea = "ChartArea1";
+            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series18.Color = System.Drawing.Color.Red;
+            series18.Name = "Series3";
+            this.chart1.Series.Add(series16);
+            this.chart1.Series.Add(series17);
+            this.chart1.Series.Add(series18);
             this.chart1.Size = new System.Drawing.Size(674, 420);
             this.chart1.TabIndex = 24;
             this.chart1.Text = "chart1";
@@ -411,6 +419,7 @@ namespace SolvingEquations
             this.ListResults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ListResults.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.ListResults.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ListResults.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.ListResults.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ListResults.ForeColor = System.Drawing.Color.White;
             this.ListResults.Location = new System.Drawing.Point(735, 346);
