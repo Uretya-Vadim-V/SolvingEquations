@@ -29,10 +29,10 @@ namespace SolvingEquations
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelOfEnterEqual = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBoxFifthDegree = new System.Windows.Forms.TextBox();
@@ -339,8 +339,8 @@ namespace SolvingEquations
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.BackColor = System.Drawing.Color.LightGray;
-            chartArea6.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea6);
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
             this.chart1.Cursor = System.Windows.Forms.Cursors.SizeWE;
             this.chart1.Enabled = false;
             this.chart1.Location = new System.Drawing.Point(50, 139);
@@ -348,23 +348,23 @@ namespace SolvingEquations
             this.chart1.MinimumSize = new System.Drawing.Size(400, 70);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series16.BorderWidth = 3;
-            series16.ChartArea = "ChartArea1";
-            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series16.Color = System.Drawing.Color.Blue;
-            series16.Name = "Series1";
-            series17.ChartArea = "ChartArea1";
-            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series17.Color = System.Drawing.Color.Black;
-            series17.Name = "Series2";
-            series18.BorderWidth = 3;
-            series18.ChartArea = "ChartArea1";
-            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series18.Color = System.Drawing.Color.Red;
-            series18.Name = "Series3";
-            this.chart1.Series.Add(series16);
-            this.chart1.Series.Add(series17);
-            this.chart1.Series.Add(series18);
+            series7.BorderWidth = 3;
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series7.Color = System.Drawing.Color.Blue;
+            series7.Name = "Series1";
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Color = System.Drawing.Color.Black;
+            series8.Name = "Series2";
+            series9.BorderWidth = 3;
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series9.Color = System.Drawing.Color.Red;
+            series9.Name = "Series3";
+            this.chart1.Series.Add(series7);
+            this.chart1.Series.Add(series8);
+            this.chart1.Series.Add(series9);
             this.chart1.Size = new System.Drawing.Size(674, 420);
             this.chart1.TabIndex = 24;
             this.chart1.Text = "chart1";
@@ -393,9 +393,10 @@ namespace SolvingEquations
             this.StartX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.StartX.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartX.Location = new System.Drawing.Point(50, 563);
+            this.StartX.MaxLength = 13;
             this.StartX.Multiline = true;
             this.StartX.Name = "StartX";
-            this.StartX.Size = new System.Drawing.Size(120, 30);
+            this.StartX.Size = new System.Drawing.Size(160, 30);
             this.StartX.TabIndex = 28;
             this.StartX.Text = "-10";
             this.StartX.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -405,10 +406,11 @@ namespace SolvingEquations
             // 
             this.EndX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.EndX.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EndX.Location = new System.Drawing.Point(604, 563);
+            this.EndX.Location = new System.Drawing.Point(564, 563);
+            this.EndX.MaxLength = 13;
             this.EndX.Multiline = true;
             this.EndX.Name = "EndX";
-            this.EndX.Size = new System.Drawing.Size(120, 30);
+            this.EndX.Size = new System.Drawing.Size(160, 30);
             this.EndX.TabIndex = 29;
             this.EndX.Text = "10";
             this.EndX.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -423,6 +425,7 @@ namespace SolvingEquations
             this.ListResults.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ListResults.ForeColor = System.Drawing.Color.White;
             this.ListResults.Location = new System.Drawing.Point(735, 346);
+            this.ListResults.MaxLength = 13;
             this.ListResults.Multiline = true;
             this.ListResults.Name = "ListResults";
             this.ListResults.ReadOnly = true;
@@ -434,9 +437,10 @@ namespace SolvingEquations
             // 
             this.EndY.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EndY.Location = new System.Drawing.Point(15, 139);
+            this.EndY.MaxLength = 13;
             this.EndY.Multiline = true;
             this.EndY.Name = "EndY";
-            this.EndY.Size = new System.Drawing.Size(30, 120);
+            this.EndY.Size = new System.Drawing.Size(30, 160);
             this.EndY.TabIndex = 31;
             this.EndY.Text = "10";
             this.EndY.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -446,11 +450,12 @@ namespace SolvingEquations
             // 
             this.StartY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.StartY.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StartY.Location = new System.Drawing.Point(15, 439);
+            this.StartY.Location = new System.Drawing.Point(15, 399);
+            this.StartY.MaxLength = 13;
             this.StartY.Multiline = true;
             this.StartY.Name = "StartY";
             this.StartY.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.StartY.Size = new System.Drawing.Size(30, 120);
+            this.StartY.Size = new System.Drawing.Size(30, 160);
             this.StartY.TabIndex = 32;
             this.StartY.Text = "-10";
             this.StartY.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;

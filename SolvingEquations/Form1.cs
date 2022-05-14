@@ -14,6 +14,7 @@ namespace SolvingEquations
         private int previousPosition = 0;
         private int currentPosition = 0;
         private IEnumerable<Complex> result = new List<Complex>();
+        private double[] arrResult;
         private static string GetString(Complex complex)
         {
             if (complex.Real < 1E-9 && complex.Real > -1E-9)
@@ -311,6 +312,7 @@ namespace SolvingEquations
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            arrResult = new double[6];
             textBoxFindRoofs.Clear();
             textBoxFifthDegree.Clear();
             textBoxFourthDegree.Clear();
@@ -476,111 +478,134 @@ namespace SolvingEquations
 
         private void textBoxFourthDegree_TextChanged(object sender, EventArgs e)
         {
+            double.TryParse(textBoxFourthDegree.Text, out fourthElement);
             if (textBoxFourthDegree.TextLength == 0 && textBoxFifthDegree.TextLength == 0)
             {
                 buttonFindRoofs.Enabled = false;
-                buttonVerification.Enabled = false;
-                buttonBuildGraph.Enabled = false;
             }
             else
             if (textBoxFifthDegree.Enabled == false && condition > 4 || condition == 4)
             {
                 buttonFindRoofs.Enabled = true;
-                buttonVerification.Enabled = true;
-                buttonBuildGraph.Enabled = true;
             }
+            buttonVerification.Enabled = false;
+            buttonBuildGraph.Enabled = false;
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
+            chart1.Series[2].Points.Clear();
+            chart1.Enabled = false;
         }
 
         private void textBoxFifthDegree_TextChanged(object sender, EventArgs e)
         {
+            double.TryParse(textBoxFifthDegree.Text, out fifthElement);
             if (textBoxFifthDegree.TextLength == 0)
             {
                 buttonFindRoofs.Enabled = false;
-                buttonVerification.Enabled = false;
-                buttonBuildGraph.Enabled = false;
             }
             else
             {
                 buttonFindRoofs.Enabled = true;
-                buttonVerification.Enabled = true;
-                buttonBuildGraph.Enabled = true;
             }
+            buttonVerification.Enabled = false;
+            buttonBuildGraph.Enabled = false;
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
+            chart1.Series[2].Points.Clear();
+            chart1.Enabled = false;
         }
 
         private void textBoxThirdDegree_TextChanged(object sender, EventArgs e)
         {
+            double.TryParse(textBoxThirdDegree.Text, out thirdElement);
             if (textBoxThirdDegree.TextLength == 0 && (textBoxFifthDegree.TextLength == 0 && textBoxFourthDegree.TextLength == 0))
             {
                 buttonFindRoofs.Enabled = false;
-                buttonVerification.Enabled = false;
-                buttonBuildGraph.Enabled = false;
             }
             else
             if (textBoxFourthDegree.Enabled == false && condition > 3 || condition == 3)
             {
                 buttonFindRoofs.Enabled = true;
-                buttonVerification.Enabled = true;
-                buttonBuildGraph.Enabled = true;
             }
+            buttonVerification.Enabled = false;
+            buttonBuildGraph.Enabled = false;
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
+            chart1.Series[2].Points.Clear();
+            chart1.Enabled = false;
         }
 
         private void textBoxSecondDegree_TextChanged(object sender, EventArgs e)
         {
+            double.TryParse(textBoxSecondDegree.Text, out secondElement);
             if (textBoxSecondDegree.TextLength == 0 && (textBoxFifthDegree.TextLength == 0 && textBoxFourthDegree.TextLength == 0 &&
                 textBoxThirdDegree.TextLength == 0))
             {
                 buttonFindRoofs.Enabled = false;
-                buttonVerification.Enabled = false;
-                buttonBuildGraph.Enabled = false;
             }
             else
             if (textBoxThirdDegree.Enabled == false && condition > 2 || condition == 2)
             {
                 buttonFindRoofs.Enabled = true;
-                buttonVerification.Enabled = true;
-                buttonBuildGraph.Enabled = true;
             }
+            buttonVerification.Enabled = false;
+            buttonBuildGraph.Enabled = false;
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
+            chart1.Series[2].Points.Clear();
+            chart1.Enabled = false;
         }
 
         private void textBoxFirstDegree_TextChanged(object sender, EventArgs e)
         {
+            double.TryParse(textBoxFirstDegree.Text, out firstElement);
             if (textBoxFirstDegree.TextLength == 0 && (textBoxFifthDegree.TextLength == 0 && textBoxFourthDegree.TextLength == 0 &&
                 textBoxThirdDegree.TextLength == 0 && textBoxSecondDegree.TextLength == 0))
             {
                 buttonFindRoofs.Enabled = false;
-                buttonVerification.Enabled = false;
-                buttonBuildGraph.Enabled = false;
             }
             else
             if (textBoxSecondDegree.Enabled == false && condition > 1 || condition == 1)
             {
                 buttonFindRoofs.Enabled = true;
-                buttonVerification.Enabled = true;
-                buttonBuildGraph.Enabled = true;
             }
+            buttonVerification.Enabled = false;
+            buttonBuildGraph.Enabled = false;
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
+            chart1.Series[2].Points.Clear();
+            chart1.Enabled = false;
         }
 
         private void textBoxFreeMember_TextChanged(object sender, EventArgs e)
         {
+            double.TryParse(textBoxFreeMember.Text, out freeElement);
             if (textBoxFreeMember.TextLength == 0 && (textBoxFifthDegree.TextLength == 0 && textBoxFourthDegree.TextLength == 0 &&
                 textBoxThirdDegree.TextLength == 0 && textBoxSecondDegree.TextLength == 0 && textBoxFirstDegree.TextLength == 0))
             {
                 buttonFindRoofs.Enabled = false;
-                buttonVerification.Enabled = false;
-                buttonBuildGraph.Enabled = false;
             }
             else
             if (textBoxFirstDegree.Enabled == false && condition > 0)
             {
                 buttonFindRoofs.Enabled = true;
-                buttonVerification.Enabled = true;
-                buttonBuildGraph.Enabled = true;
             }
+            buttonVerification.Enabled = false;
+            buttonBuildGraph.Enabled = false;
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
+            chart1.Series[2].Points.Clear();
+            chart1.Enabled = false;
         }
 
         //Нахождение корней уравнения
         private void buttonFindRoofs_Click(object sender, EventArgs e)
         {
+            if (arrResult[0] == freeElement && arrResult[1] == firstElement && arrResult[2] == secondElement &&
+                arrResult[3] == thirdElement && arrResult[4] == fourthElement && arrResult[5] == fifthElement)
+                return;
+            else
+                arrResult = new double[] { freeElement, firstElement, secondElement, thirdElement, fourthElement, fifthElement };
             buttonBuildGraph.Enabled = true;
             textBoxFindRoofs.Enabled = true;
             buttonVerification.Enabled = true;
@@ -593,12 +618,6 @@ namespace SolvingEquations
             StartY.Text = "-10";
             EndY.Text = "10";
             textBoxFindRoofs.Clear();
-            double.TryParse(textBoxFreeMember.Text, out freeElement);
-            double.TryParse(textBoxFirstDegree.Text, out firstElement);
-            double.TryParse(textBoxSecondDegree.Text, out secondElement);
-            double.TryParse(textBoxThirdDegree.Text, out thirdElement);
-            double.TryParse(textBoxFourthDegree.Text, out fourthElement);
-            double.TryParse(textBoxFifthDegree.Text, out fifthElement);
             switch (condition)
             {
                 case 1:
@@ -779,8 +798,11 @@ namespace SolvingEquations
             chart1.Series[1].Points.AddXY(endX, 0);
             foreach (var item in result)
             {
-                if ((item.Imaginary < 1E-9 && item.Imaginary > -1E-9) && (item.Real > startX && item.Real < endX))
-                    chart1.Series[2].Points.AddXY(item.Real, 0);
+                if ((decimal)item.Real < decimal.MaxValue && (decimal)item.Real > decimal.MinValue)
+                {
+                    if ((item.Imaginary < 1E-9 && item.Imaginary > -1E-9) && (item.Real > startX && item.Real < endX))
+                        chart1.Series[2].Points.AddXY(item.Real, 0);
+                }
             }
         }
     }
