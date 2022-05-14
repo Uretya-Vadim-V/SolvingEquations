@@ -791,8 +791,21 @@ namespace SolvingEquations
             chart1.Series[2].Points.Clear();
             for (double i = startX; i <= endX; i += 0.1)
             {
-                double y = fifthElement * Math.Pow(i, 5) + fourthElement * Math.Pow(i, 4) + thirdElement * Math.Pow(i, 3) + secondElement * Math.Pow(i, 2) + firstElement * i + freeElement;
-                chart1.Series[0].Points.AddXY(i, y);
+                try
+                {
+                    double y = (double)((decimal)fifthElement * (decimal)Math.Pow(i, 5) + (decimal)fourthElement * (decimal)Math.Pow(i, 4) +
+                        (decimal)thirdElement * (decimal)Math.Pow(i, 3) + (decimal)secondElement * (decimal)Math.Pow(i, 2) + (decimal)firstElement * (decimal)i + (decimal)freeElement);
+                    chart1.Series[0].Points.AddXY(i, y);
+                }
+                catch
+                {
+                    MessageBox.Show(this,
+                    "Значение было недопустимо малым или недопустимо большим", "Коэффициенты",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button1, 0);
+                    return;
+                }
             }
             chart1.Series[1].Points.AddXY(startX, 0);
             chart1.Series[1].Points.AddXY(endX, 0);
