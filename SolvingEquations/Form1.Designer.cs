@@ -29,10 +29,10 @@ namespace SolvingEquations
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelOfEnterEqual = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBoxFifthDegree = new System.Windows.Forms.TextBox();
@@ -58,6 +58,7 @@ namespace SolvingEquations
             this.ListResults = new System.Windows.Forms.TextBox();
             this.EndY = new System.Windows.Forms.TextBox();
             this.StartY = new System.Windows.Forms.TextBox();
+            this.ClearHistory = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -339,8 +340,8 @@ namespace SolvingEquations
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.BackColor = System.Drawing.Color.LightGray;
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
+            chartArea4.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea4);
             this.chart1.Cursor = System.Windows.Forms.Cursors.SizeWE;
             this.chart1.Enabled = false;
             this.chart1.Location = new System.Drawing.Point(50, 139);
@@ -348,23 +349,23 @@ namespace SolvingEquations
             this.chart1.MinimumSize = new System.Drawing.Size(400, 70);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series7.BorderWidth = 3;
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series7.Color = System.Drawing.Color.Blue;
-            series7.Name = "Series1";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Color = System.Drawing.Color.Black;
-            series8.Name = "Series2";
-            series9.BorderWidth = 3;
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series9.Color = System.Drawing.Color.Red;
-            series9.Name = "Series3";
-            this.chart1.Series.Add(series7);
-            this.chart1.Series.Add(series8);
-            this.chart1.Series.Add(series9);
+            series10.BorderWidth = 3;
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series10.Color = System.Drawing.Color.Blue;
+            series10.Name = "Series1";
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series11.Color = System.Drawing.Color.Black;
+            series11.Name = "Series2";
+            series12.BorderWidth = 3;
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series12.Color = System.Drawing.Color.Red;
+            series12.Name = "Series3";
+            this.chart1.Series.Add(series10);
+            this.chart1.Series.Add(series11);
+            this.chart1.Series.Add(series12);
             this.chart1.Size = new System.Drawing.Size(674, 420);
             this.chart1.TabIndex = 24;
             this.chart1.Text = "chart1";
@@ -462,12 +463,28 @@ namespace SolvingEquations
             this.StartY.WordWrap = false;
             this.StartY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.StartY_KeyPress);
             // 
+            // ClearHistory
+            // 
+            this.ClearHistory.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.ClearHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.ClearHistory.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ClearHistory.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearHistory.ForeColor = System.Drawing.Color.White;
+            this.ClearHistory.Location = new System.Drawing.Point(734, 593);
+            this.ClearHistory.Name = "ClearHistory";
+            this.ClearHistory.Size = new System.Drawing.Size(45, 40);
+            this.ClearHistory.TabIndex = 33;
+            this.ClearHistory.Text = "✖";
+            this.ClearHistory.UseVisualStyleBackColor = false;
+            this.ClearHistory.Click += new System.EventHandler(this.ClearHistory_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.ClientSize = new System.Drawing.Size(1262, 673);
+            this.Controls.Add(this.ClearHistory);
             this.Controls.Add(this.StartY);
             this.Controls.Add(this.EndY);
             this.Controls.Add(this.ListResults);
@@ -498,6 +515,7 @@ namespace SolvingEquations
             this.MinimumSize = new System.Drawing.Size(1280, 720);
             this.Name = "Form1";
             this.Text = "Решение уравнений";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -531,6 +549,7 @@ namespace SolvingEquations
         private System.Windows.Forms.TextBox ListResults;
         private System.Windows.Forms.TextBox EndY;
         private System.Windows.Forms.TextBox StartY;
+        private System.Windows.Forms.Button ClearHistory;
     }
 }
 

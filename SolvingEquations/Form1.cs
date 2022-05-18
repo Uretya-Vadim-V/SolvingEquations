@@ -4,17 +4,27 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Linq;
 using System.Drawing;
+using System.Threading.Tasks;
+using System.Windows;
+using System.IO;
 
 namespace SolvingEquations
 {
     public partial class Form1 : Form
     {
+        public Form1()
+        {
+            StartPosition = FormStartPosition.CenterScreen;
+            InitializeComponent();
+        }
+
         private int condition;
         private double firstElement, secondElement, thirdElement, fourthElement, fifthElement, freeElement;
         private int previousPosition = 0;
         private int currentPosition = 0;
         private IEnumerable<Complex> result = new List<Complex>();
         private double[] arrResult;
+        string path = Directory.GetCurrentDirectory();
         private static string GetString(Complex complex)
         {
             if (complex.Real < 1E-9 && complex.Real > -1E-9)
@@ -24,6 +34,7 @@ namespace SolvingEquations
             else
                 return complex.Real == 0 ? $"{complex.Imaginary}i" : $"{complex.Real}" + (complex.Imaginary > 0 ? $" + {complex.Imaginary}i" : $" - {-complex.Imaginary}i");
         }
+
         //Проверка корней уравнения
         private void buttonVerification_Click(object sender, EventArgs e)
         {
@@ -50,12 +61,7 @@ namespace SolvingEquations
                                 MessageBoxDefaultButton.Button1, 0);
         }
 
-        public Form1()
-        {
-            StartPosition = FormStartPosition.CenterScreen;
-            InitializeComponent();
-        }
-
+        //↓ события, реагирующие на изменение степени уравнения
         private void comboBox1_TextChanged(object sender, EventArgs e)
         {
             int.TryParse(comboBox1.Text, out condition);
@@ -154,6 +160,31 @@ namespace SolvingEquations
             }
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            arrResult = new double[6];
+            textBoxFindRoofs.Clear();
+            textBoxFifthDegree.Clear();
+            textBoxFourthDegree.Clear();
+            textBoxThirdDegree.Clear();
+            textBoxSecondDegree.Clear();
+            textBoxFirstDegree.Clear();
+            textBoxFreeMember.Clear();
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
+            chart1.Series[2].Points.Clear();
+            chart1.Enabled = false;
+            StartX.Text = "-10";
+            EndX.Text = "10";
+            StartY.Text = "-10";
+            EndY.Text = "10";
+            buttonBuildGraph.Enabled = false;
+            buttonVerification.Enabled = false;
+            textBoxFindRoofs.Enabled = false;
+            buttonFindRoofs.Enabled = false;
+        }
+
+        //↓ правила вводимых значений в каждый textBox
         private void textBoxFifthDegree_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 45 && textBoxFifthDegree.SelectionStart == 0) { }
@@ -310,30 +341,6 @@ namespace SolvingEquations
             }
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            arrResult = new double[6];
-            textBoxFindRoofs.Clear();
-            textBoxFifthDegree.Clear();
-            textBoxFourthDegree.Clear();
-            textBoxThirdDegree.Clear();
-            textBoxSecondDegree.Clear();
-            textBoxFirstDegree.Clear();
-            textBoxFreeMember.Clear();
-            chart1.Series[0].Points.Clear();
-            chart1.Series[1].Points.Clear();
-            chart1.Series[2].Points.Clear();
-            chart1.Enabled = false;
-            StartX.Text = "-10";
-            EndX.Text = "10";
-            StartY.Text = "-10";
-            EndY.Text = "10";
-            buttonBuildGraph.Enabled = false;
-            buttonVerification.Enabled = false;
-            textBoxFindRoofs.Enabled = false;
-            buttonFindRoofs.Enabled = false;
-        }
-
         private void EndY_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 45 && EndY.SelectionStart == 0) { }
@@ -438,44 +445,7 @@ namespace SolvingEquations
             }
         }
 
-        private void chart1_MouseWheel(object sender, MouseEventArgs e)
-        {
-            double.TryParse(StartX.Text, out double startX);
-            double.TryParse(EndX.Text, out double endX);
-            double.TryParse(StartY.Text, out double startY);
-            double.TryParse(EndY.Text, out double endY);
-            if (startY != endY)
-            {
-                if (e.Delta < 0)
-                {
-                    StartX.Text = (startX + 0.01).ToString();
-                    EndX.Text = (endX - 0.01).ToString();
-                    StartY.Text = (startY + 0.01).ToString();
-                    EndY.Text = (endY - 0.01).ToString();
-                }
-                else
-                {
-                    StartX.Text = (startX - 0.01).ToString();
-                    EndX.Text = (endX + 0.01).ToString();
-                    StartY.Text = (startY - 0.01).ToString();
-                    EndY.Text = (endY + 0.01).ToString();
-                }
-                if (startX > endX)
-                {
-                    double.TryParse(StartX.Text, out startX);
-                    double.TryParse(EndX.Text, out endX);
-                }
-            }
-            else
-            {
-                StartY.Text = "-10";
-                EndY.Text = "10";
-                startY = -10;
-                endY = 10;
-            }
-            BuildGraph(startX, endX, startY, endY);
-        }
-
+        //↓ события, реагирующие на изменение коэффициентов уравнения
         private void textBoxFourthDegree_TextChanged(object sender, EventArgs e)
         {
             double.TryParse(textBoxFourthDegree.Text, out fourthElement);
@@ -606,9 +576,6 @@ namespace SolvingEquations
                 return;
             else
                 arrResult = new double[] { freeElement, firstElement, secondElement, thirdElement, fourthElement, fifthElement };
-            buttonBuildGraph.Enabled = true;
-            textBoxFindRoofs.Enabled = true;
-            buttonVerification.Enabled = true;
             chart1.Series[0].Points.Clear();
             chart1.Series[1].Points.Clear();
             chart1.Series[2].Points.Clear();
@@ -618,69 +585,81 @@ namespace SolvingEquations
             StartY.Text = "-10";
             EndY.Text = "10";
             textBoxFindRoofs.Clear();
+            string text = "";
+            void MassageBoxError()
+            {
+                MessageBox.Show(this,
+                    "Первый элемент не может быть равен нулю!", "Входные данные",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button1, 0);
+            }
             switch (condition)
             {
                 case 1:
                     {
+                        if (firstElement == 0)
+                        {
+                            MassageBoxError();
+                            return;
+                        }
                         double EquationOfTheFirstDegree = -freeElement / firstElement;
                         textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
-                        string text = ListResults.Text;
-                        ListResults.Clear();
-                        ListResults.Text += $"{firstElement}x " +
-                            (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
-                            Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
+                        text = ListResults.Text;
                         break;
                     }
                 case 2:
                     {
+                        if (secondElement == 0)
+                        {
+                            MassageBoxError();
+                            return;
+                        }
                         result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
                         foreach (var item in result)
                         {
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
-                        string text = ListResults.Text;
-                        ListResults.Clear();
-                        ListResults.Text += $"{secondElement}x² " +
-                            (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
-                            (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
-                            Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
+                        text = ListResults.Text;
                         break;
                     }
                 case 3:
                     {
+                        if (thirdElement == 0)
+                        {
+                            MassageBoxError();
+                            return;
+                        }
                         result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
                         foreach (var item in result)
                         {
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
-                        string text = ListResults.Text;
-                        ListResults.Clear();
-                        ListResults.Text += $"{thirdElement}x³ " +
-                            (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "") +
-                            (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
-                            (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
-                            Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
+                        text = ListResults.Text;
                         break;
                     }
                 case 4:
                     {
+                        if (fourthElement == 0)
+                        {
+                            MassageBoxError();
+                            return;
+                        }
                         result = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
                         foreach (var item in result)
                         {
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
-                        string text = ListResults.Text;
-                        ListResults.Clear();
-                        ListResults.Text += $"{fourthElement}x⁴ " +
-                            (thirdElement > 0 ? $"+ {thirdElement}x³ " : thirdElement < 0 ? $"- {-thirdElement}x³ " : "") +
-                            (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "") +
-                            (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
-                            (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
-                            Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
+                        text = ListResults.Text;
                         break;
                     }
                 case 5:
                     {
+                        if (fifthElement == 0)
+                        {
+                            MassageBoxError();
+                            return;
+                        }
                         result = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
                         foreach (var item in result)
                         {
@@ -691,18 +670,65 @@ namespace SolvingEquations
                                 textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                             }
                         }
-                        string text = ListResults.Text;
-                        ListResults.Clear();
-                        ListResults.Text += $"{fifthElement}x⁵ " +
-                            (fourthElement > 0 ? $"+ {fourthElement}x⁴ " : fourthElement < 0 ? $"- {-fourthElement}x⁴ " : "") +
-                            (thirdElement > 0 ? $"+ {thirdElement}x³ " : thirdElement < 0 ? $"- {-thirdElement}x³ " : "") +
-                            (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "") +
-                            (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "") +
-                            (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0") +
-                            Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
+                        text = ListResults.Text;
                         break;
                     }
             }
+            ListResults.Clear();
+            ListResults.Text += GetEquation() + Environment.NewLine + textBoxFindRoofs.Text + Environment.NewLine + text + Environment.NewLine;
+            buttonBuildGraph.Enabled = true;
+            textBoxFindRoofs.Enabled = true;
+            buttonVerification.Enabled = true;
+            using (StreamWriter fstream = new StreamWriter($"{path}\\listResults.txt", true))
+            {
+                fstream.WriteLine(GetEquation());
+                foreach (var item in result)
+                {
+                    fstream.WriteLine(GetString(item));
+                }
+                fstream.WriteLine("///");
+            }
+        }
+        private string GetEquation()
+        {
+            return (fifthElement == 0 ? "" : $"{fifthElement}x⁵ ") +
+                            (fifthElement == 0 ? (fourthElement == 0 ? "" : $"{fourthElement}x⁴ ") : (fourthElement > 0 ? $"+ {fourthElement}x⁴ " : fourthElement < 0 ? $"- {-fourthElement}x⁴ " : "")) +
+                            (fifthElement == 0 && fourthElement == 0 ? (thirdElement == 0 ? "" : $"{thirdElement}x³ ") : (thirdElement > 0 ? $"+ {thirdElement}x³ " : thirdElement < 0 ? $"- {-thirdElement}x³ " : "")) +
+                            (fifthElement == 0 && fourthElement == 0 && thirdElement == 0 ? (secondElement == 0 ? "" : $"{secondElement}x² ") : (secondElement > 0 ? $"+ {secondElement}x² " : secondElement < 0 ? $"- {-secondElement}x² " : "")) +
+                            (fifthElement == 0 && fourthElement == 0 && thirdElement == 0 && secondElement == 0 ? (firstElement == 0 ? "" : $"{firstElement}x ") : (firstElement > 0 ? $"+ {firstElement}x " : firstElement < 0 ? $"- {-firstElement}x " : "")) +
+                            (freeElement > 0 ? $"+ {freeElement} = 0" : freeElement < 0 ? $"- {-freeElement} = 0" : "= 0");
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            using (FileStream fstream = new FileStream($"{path}\\listResults.txt", FileMode.OpenOrCreate)) { }
+            string line = "///";
+            string text1 = "";
+            string text2 = "";
+            using (StreamReader sr = new StreamReader($"{path}\\listResults.txt"))
+            {
+                while (line != null)
+                {
+                    if (line == "///")
+                    {
+                        text2 = text1 + Environment.NewLine + text2;
+                        text1 = "";
+                    }
+                    line = sr.ReadLine();
+                    if (line != "///")
+                    {
+                        text1 += line + Environment.NewLine;
+                    }
+                }
+            }
+            ListResults.Text = text2;
+        }
+
+        //Очистка истории
+        private void ClearHistory_Click(object sender, EventArgs e)
+        {
+            ListResults.Clear();
+            File.WriteAllText($"{path}\\listResults.txt", string.Empty);
         }
 
         //Очистка полей
@@ -724,6 +750,7 @@ namespace SolvingEquations
             EndY.Text = "10";
         }
 
+        //Создание графика
         private void buttonBuildGraph_Click(object sender, EventArgs e)
         {
             chart1.Enabled = true;
@@ -756,30 +783,6 @@ namespace SolvingEquations
             double.TryParse(StartY.Text, out startY);
             double.TryParse(EndY.Text, out endY);
             BuildGraph(startX, endX, startY, endY);
-        }
-
-        private void chart1_MouseMove(object sender, MouseEventArgs e)
-        {
-            double.TryParse(StartX.Text, out double startX);
-            double.TryParse(EndX.Text, out double endX);
-            double.TryParse(StartY.Text, out double startY);
-            double.TryParse(EndY.Text, out double endY);
-            if (e.Button == MouseButtons.Left)
-            {
-                currentPosition = (Cursor.Position.X - Left);
-                if (currentPosition > previousPosition)
-                {
-                    StartX.Text = (startX - 0.05).ToString();
-                    EndX.Text = (endX - 0.05).ToString();
-                }
-                else
-                {
-                    StartX.Text = (startX + 0.05).ToString();
-                    EndX.Text = (endX + 0.05).ToString();
-                }
-                previousPosition = (Cursor.Position.X - Left);
-                BuildGraph(startX, endX, startY, endY);
-            }
         }
         private void BuildGraph(double startX, double endX, double startY, double endY)
         {
@@ -817,6 +820,70 @@ namespace SolvingEquations
                         chart1.Series[2].Points.AddXY(item.Real, 0);
                 }
             }
+        }
+
+        //Сдвиг графика по оси абсцисс удерживанием левой клавиши мыши
+        private void chart1_MouseMove(object sender, MouseEventArgs e)
+        {
+            double.TryParse(StartX.Text, out double startX);
+            double.TryParse(EndX.Text, out double endX);
+            double.TryParse(StartY.Text, out double startY);
+            double.TryParse(EndY.Text, out double endY);
+            if (e.Button == MouseButtons.Left)
+            {
+                currentPosition = (Cursor.Position.X - Left);
+                if (currentPosition > previousPosition)
+                {
+                    StartX.Text = (startX - 0.05).ToString();
+                    EndX.Text = (endX - 0.05).ToString();
+                }
+                else
+                {
+                    StartX.Text = (startX + 0.05).ToString();
+                    EndX.Text = (endX + 0.05).ToString();
+                }
+                previousPosition = (Cursor.Position.X - Left);
+                BuildGraph(startX, endX, startY, endY);
+            }
+        }
+
+        //Прибилижение или отдаление графика колёсиком мыши 
+        private void chart1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            double.TryParse(StartX.Text, out double startX);
+            double.TryParse(EndX.Text, out double endX);
+            double.TryParse(StartY.Text, out double startY);
+            double.TryParse(EndY.Text, out double endY);
+            if (startY != endY)
+            {
+                if (e.Delta < 0)
+                {
+                    StartX.Text = (startX + 0.01).ToString();
+                    EndX.Text = (endX - 0.01).ToString();
+                    StartY.Text = (startY + 0.01).ToString();
+                    EndY.Text = (endY - 0.01).ToString();
+                }
+                else
+                {
+                    StartX.Text = (startX - 0.01).ToString();
+                    EndX.Text = (endX + 0.01).ToString();
+                    StartY.Text = (startY - 0.01).ToString();
+                    EndY.Text = (endY + 0.01).ToString();
+                }
+                if (startX > endX)
+                {
+                    double.TryParse(StartX.Text, out startX);
+                    double.TryParse(EndX.Text, out endX);
+                }
+            }
+            else
+            {
+                StartY.Text = "-10";
+                EndY.Text = "10";
+                startY = -10;
+                endY = 10;
+            }
+            BuildGraph(startX, endX, startY, endY);
         }
     }
 }

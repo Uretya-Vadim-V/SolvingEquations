@@ -7,6 +7,7 @@ namespace SolvingEquations
 {
     public static class Calculation
     {
+        //Решение уравнения второй степени
         public static IEnumerable<Complex> EquationOfTheSecondDegree(double a0, double a1, double a2)
         {
             double disc = a1 * a1 - 4 * a0 * a2;
@@ -24,6 +25,8 @@ namespace SolvingEquations
                 return new List<Complex> { new Complex((-a1 - Math.Sqrt(disc)) / 2 / a0, 0), new Complex((-a1 + Math.Sqrt(disc)) / 2 / a0, 0) };
             }
         }
+
+        //Решение уравнения третьей степени
         public static IEnumerable<Complex> EquationOfTheThirdDegree(double a0, double a1, double a2, double a3)
         {
             double a = a1 / a0, b = a2 / a0, c = a3 / a0;
@@ -62,6 +65,8 @@ namespace SolvingEquations
                 }
             }
         }
+
+        //Решение уравнения четвёртой степени
         public static IEnumerable<Complex> EquationOfTheFourthDegree(double a0, double a1, double a2, double a3, double a4)
         {
             if (a1 == 0 && a2 == 0 && a3 == 0 && a4 == 0)
@@ -284,6 +289,8 @@ namespace SolvingEquations
                 }
             }
         }
+
+        //Решение уравнения пятой степени
         public static IEnumerable<Complex> EquationOfTheFifthDegree(double a0, double a1, double a2, double a3, double a4, double a5)
         {
             double a = a1 / a0, b = a2 / a0, c = a3 / a0, d = a4 / a0, e = a5 / a0;
